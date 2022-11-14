@@ -559,7 +559,7 @@ video {
   font-weight: 700;
 }
 
-.text-yellow-test {
+.text-red-test {
   --tw-text-opacity: 1;
-  color: rgb(255 211 51 / var(--tw-text-opacity));
+  color: rgb(255 75 50 / var(--tw-text-opacity));
 }
