@@ -1,0 +1,32 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Tailwind: Watch for changes",
+			"type": "npm",
+			"script": "tailwind-watch",
+			"path": "jstoolchain",
+		},
+		{
+			"label": "Django: Run Server",
+			"type": "shell",
+			"command": "${command:python.interpreterPath}",
+			"args": [
+				"manage.py",
+				"runserver"
+			],
+		},
+		{
+			"label": "Start toolchain",
+			"dependsOn": [
+				"Tailwind: Watch for changes",
+				"Django: Run Server"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
