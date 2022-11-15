@@ -4,8 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'red-test': '#FF4B32',
+        'border-blue': '#1E00D9',
       },
+      dropShadow: {
+        'turquoise': '0 80px 100px -30px rgba(41, 144, 176, 0.8)',
+      }
     },
   },
   plugins: [],
