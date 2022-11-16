@@ -1,8 +1,8 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
-class IndexView(TemplateView):
-    template_name = "index.html"
+class BaseView(TemplateView):
+    template_name = "base.html"
 
     def get(self, request):
         print('🐍 Hello from the Django backend! 🐍')
