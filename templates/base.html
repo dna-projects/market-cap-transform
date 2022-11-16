@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docker + Django!</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <style>
         body {
-            background-image: url("{% static '/images/background-image-dark.jpg' %}");
+            background-image: url("{% static '/images/background-image.png' %}");
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -44,6 +45,7 @@
 
             <!-- Center div start -->
             <div class="flex self-center border border-border-blue rounded-lg h-[500px] w-[900px] mb-24">
+                <!-- TO DO: add custom gradient border in custom.css -->
                 {% block content %} {% endblock content %}
             </div>
             <!-- Center div end -->
