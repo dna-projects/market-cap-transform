@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 
 class BaseView(TemplateView):
-    template_name = "base.html"
+    template_name = "initial.html"
 
     def get(self, request):
         print('🐍 Hello from the Django backend! 🐍')
