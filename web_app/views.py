@@ -1,14 +1,18 @@
 from dataclasses import dataclass
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
+from web_app.services import get_covalent_data
 
 class InitialPageView(TemplateView):
     template_name = "initial.html"
 
-    # TODO - Perform api call from inside Django or use Javascript?
-    #      - 
-
     def get(self, request):
+        # UNCOMMENT TO make covalent API request 
+        # NOTE - Must add COVALENT_API_KEY='...api key...' to .env file
+
+        # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
+        # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
+        # print(token_list)
         return render(request, self.template_name)
 
     # TODO - Pass data (token a, token b) into TransformPageView
