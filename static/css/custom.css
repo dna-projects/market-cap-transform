@@ -2,22 +2,18 @@
     background: linear-gradient(180deg, #000000 43.46%, rgba(0, 0, 0, 0) 64.84%);
 }
 
-.main-content-border {
-    /* background: linear-gradient(45deg,red,blue) border-box;
-     mask:
-     linear-gradient(#fff 0 0) padding-box, 
-     linear-gradient(#fff 0 0);
-    mask-composite: exclude; 
-    border-radius: 12px;
-    border: 4px solid transparent; */
+/* Gradient border and gradient background */
+.main-content {
+    border:1px solid #0000;
+    border-radius:12px;
+    opacity: 0.5;
+    background:
+        linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#252cfd, #67e1f1) border-box;
 }
-
-.main-content-gradient {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.423) 0%, rgba(0, 36, 70, 0.376) 100%);
-}
-
 .box-shadow-main {
-    box-shadow: 0px 80px 100px -30px rgba(41, 144, 176, 0.8);
+    box-shadow: 0px 100px 110px -40px rgb(31, 203, 255);
+    /* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
 }
 
 #logo {
