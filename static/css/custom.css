@@ -46,6 +46,16 @@
     box-shadow: 0px 0px 15px 12px rgb(44, 138, 116, 0.40);
 }
 
+/* Fonts */
+
+.font-mavenpro {
+    font-family: "Maven Pro", sans-serif;
+}
+
+.font-inter {
+    font-family: "Inter", sans-serif;
+}
+
 #logo {
     width: 60px;
     height: 60px;

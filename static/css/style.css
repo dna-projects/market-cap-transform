@@ -636,6 +636,18 @@ video {
   margin-top: 1.25rem;
 }
 
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
+.mr-12 {
+  margin-right: 3rem;
+}
+
 .block {
   display: block;
 }
@@ -798,6 +810,10 @@ video {
 
 .justify-self-end {
   justify-self: end;
+}
+
+.justify-self-center {
+  justify-self: center;
 }
 
 .overflow-auto {
@@ -1052,6 +1068,14 @@ video {
     margin-top: 4rem;
   }
 
+  .sm\:mr-0 {
+    margin-right: 0px;
+  }
+
+  .sm\:mr-2 {
+    margin-right: 0.5rem;
+  }
+
   .sm\:flex {
     display: flex;
   }
@@ -1068,8 +1092,16 @@ video {
     flex-direction: row;
   }
 
+  .sm\:justify-start {
+    justify-content: flex-start;
+  }
+
   .sm\:self-start {
     align-self: flex-start;
+  }
+
+  .sm\:justify-self-start {
+    justify-self: start;
   }
 
   .sm\:text-lg {
