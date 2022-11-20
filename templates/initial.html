@@ -1,25 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
 
 <div id="input" class="flex flex-col w-full mt-10">
     <!-- token A -->
     {% include "components/add-token.html" with default_text="A..." id="token-A" %}
-    <div class="flex flex-col self-center gap-1 py-2">
-        <div class="shadow bg-[#FF4B32] w-2 h-2 rounded-full"></div>
-        <div class="shadow bg-[#1BBEF1] w-2 h-2 rounded-full"></div>
-        <div class="shadow bg-[#00FFC2] w-2 h-2 rounded-full"></div>
+    <div class="flex flex-col self-center gap-2 py-4">
+        <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full"></div>
+        <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full"></div>
+        <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full"></div>
     </div>
     <!-- token B -->
     {% include "components/add-token.html" with default_text="B..." id="token-B" %}
 </div>
 
+<!-- Initial content -->
 <div id="output" class="flex flex-col self-center">
-    <p id="market-cap-text" class="text-white my-10">Evmos with the market cap of Eth</p>
-    <div id="final-market-cap" class="flex self-center gap-2">
-        <div id="token-A-image" class="bg-[#FF4B32] w-10 h-10 rounded-full"></div>
-        <div id="token-A-price" class="text-white text-4xl self-end">$451</div>
-        <div id="token-A-percentage" class="text-green-300 self-end">297 %</div>
+    <!-- Transform market cap text -->
+    <div id="market-cap-text" class="flex flex-row">
+        <p class="text-white text-sm my-12">Transform market cap A</p>
+        <div class="self-center bg-[#FF4B32] w-[6px] h-[6px] rounded-full mx-2"></div>
+        <p class="text-white text-sm my-12">→ market cap B</p>
+        <div class="self-center bg-[#00FFC2] w-[6px] h-[6px] rounded-full mx-2"></div>
+    </div>
+    <!-- Token A to token B icons -->
+    <div class="flex self-center gap-2">
+        <div id="token-A-image" class="bg-[#FF4B32] w-10 h-10 rounded-full"></div> <!--placeholder for token A icon-->
+        <div id="flow-arrow-icon" class="self-center mx-3">
+            <img src="{% static "svg/flow-arrow.svg" %}" alt="Flow Arrows Icon">
+        </div>
+        <div id="token-B-image" class="bg-white w-10 h-10 rounded-full"></div> <!--placeholder for token B icon-->
     </div>
 </div>
 

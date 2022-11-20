@@ -26,6 +26,26 @@
         linear-gradient(#2f36ff, #67e1f1) border-box;
 }
 
+/* Add token input box shadow */
+.box-shadow-add-token {
+    box-shadow: 0px 4px 36px -10px rgb(0, 155, 255);
+    /* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
+}
+
+/* Circle icon shadow */
+
+.red-shadow {
+    box-shadow: 0px 0px 15px 12px rgb(255, 82, 44, 0.40);
+}
+
+.blue-shadow {
+    box-shadow: 0px 0px 15px 10px rgb(31, 203, 255, 0.30);
+}
+
+.green-shadow {
+    box-shadow: 0px 0px 15px 12px rgb(44, 138, 116, 0.40);
+}
+
 #logo {
     width: 60px;
     height: 60px;
