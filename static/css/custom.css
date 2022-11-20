@@ -11,6 +11,7 @@
         linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 36, 70, 0.976) 100%) padding-box,
         linear-gradient(#2f36ff, #67e1f1) border-box;
 }
+
 .box-shadow-main {
     box-shadow: 0px 100px 110px -40px rgb(31, 203, 255);
     /* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
