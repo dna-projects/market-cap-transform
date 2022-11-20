@@ -3,10 +3,10 @@
 {% block content %}
 {% load static %}
 
-<div id="input" class="flex flex-col w-full mt-10">
+<div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
     {% include "components/add-token.html" with default_text="A..." id="token-A" %}
-    <div class="flex flex-col self-center gap-2 py-4">
+    <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
         <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full"></div>
         <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full"></div>
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full"></div>
@@ -18,10 +18,10 @@
 <!-- Initial content -->
 <div id="output" class="flex flex-col self-center">
     <!-- Transform market cap text -->
-    <div id="market-cap-text" class="flex flex-row">
-        <p class="text-white text-sm my-12">Transform market cap A</p>
+    <div id="market-cap-text" class="flex flex-row sm:my-8">
+        <p class="text-white text-sm my-12 sm:text-lg">Transform market cap A</p>
         <div class="self-center bg-[#FF4B32] w-[6px] h-[6px] rounded-full mx-2"></div>
-        <p class="text-white text-sm my-12">→ market cap B</p>
+        <p class="text-white text-sm my-12 sm:text-lg">→ market cap B</p>
         <div class="self-center bg-[#00FFC2] w-[6px] h-[6px] rounded-full mx-2"></div>
     </div>
     <!-- Token A to token B icons -->
