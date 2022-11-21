@@ -1,6 +1,7 @@
 from django.urls import path
-from web_app.views import BaseView
+from web_app.views import InitialPageView, TransformPageView
 
 urlpatterns = [
-    path('', BaseView.as_view(), name='base'),
+    path('', InitialPageView.as_view(), name='initial'),
+    path('transform', TransformPageView.as_view(), name='transform')
 ]

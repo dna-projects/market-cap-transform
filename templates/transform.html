@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- 
+TODO - Update input div based on final version of initial.html
+
+TODO - Add data attribute so that whatever tokens were selected in initial
+       will show up selected when redirected to this page
+-->
+<div id="input" class="flex flex-col w-full mt-10">
+    <!-- token A -->
+    {% include "components/add-token.html" with default_text="TokenA" id="token-A" %}
+    <div class="flex flex-col self-center gap-1 py-2">
+        <div class="shadow bg-[#FF4B32] w-2 h-2 rounded-full"></div>
+        <div class="shadow bg-[#1BBEF1] w-2 h-2 rounded-full"></div>
+        <div class="shadow bg-[#00FFC2] w-2 h-2 rounded-full"></div>
+    </div>
+    <!-- token B -->
+    {% include "components/add-token.html" with default_text="TokenB" id="token-B" %}
+</div>
+
+<!-- 
+TODO - Probably remove the ids as long as backend is working. JS seems overkill here...
+-->
+<div id="output" class="flex flex-col self-center">
+    <p id="market-cap-text" class="text-white my-10">{{ token_a.name }} with the market cap of {{ token_b.name }}</p>
+    <div id="final-market-cap" class="flex self-center justify-around">
+        <div id="token-A-image">{{ token_a.img }}</div>
+        <div id="token-A-price" class="text-white text-2xl self-end">${{ token_a.price }}</div>
+        <div id="token-A-percentage" class="text-green-300 self-end">{{ token_a.percentage }}%</div>
+    </div>
+</div>
+
+{% endblock content %}
