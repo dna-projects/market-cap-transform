@@ -41,7 +41,6 @@
     const token_A = getEl("#id_token_input_A")
     const token_B = getEl("#id_token_input_B")
 
-    token_A.addEventListener("keyup" , get_token_list)
     token_B.addEventListener("keyup" , get_token_list)
     function get_token_list(ev){
         let input_value = ev.target.value
@@ -54,7 +53,7 @@
 
     // This will be used to provide the csrf token to Django and allow the post
     // request to go through
-    const csrfToken = '{{ csrf_token }}'
+    let csrfToken = '{{ csrf_token }}'
 
     getTokensOnInput();
 
@@ -69,7 +68,6 @@
     }
 
     // When user enters text, call api from backend
-    // TODO - Need to figure out how to get POST request working...
     // TODO - May need to enable CORS in Django when this is deployed
     async function sendRequestForTokens(token_query) {
         /*return (
@@ -80,14 +78,14 @@
             body: JSON.stringify({'token_query' : token_query})
           })).json();*/
         let response = await fetch('', {
-          //method: 'POST',
+          method: 'POST',
           credentials: 'same-origin',
           headers: {
             'Accept': 'application/json', 
             'Content-Type': 'application/json', 
-            //'X-CSRFToken': csrfToken
+            'X-CSRFToken': csrfToken
           },
-          //body: JSON.stringify({'token_query': token_query})
+          body: JSON.stringify({'token_query': token_query})
         });
         let json = await response.json();
         return json;
