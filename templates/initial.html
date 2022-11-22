@@ -5,14 +5,14 @@
 
 <div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
-    {% include "components/add-token.html" with default_text="A..." id="token-A" %}
+    {% include "components/add-token.html" with form=form_A %}
     <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
         <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full"></div>
         <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full"></div>
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full"></div>
     </div>
     <!-- token B -->
-    {% include "components/add-token.html" with default_text="B..." id="token-B" %}
+    {% include "components/add-token.html" with form=form_B %}
 </div>
 
 <!-- Initial content -->
@@ -33,5 +33,20 @@
         <div id="token-B-image" class="bg-white w-10 h-10 rounded-full"></div> <!--placeholder for token B icon-->
     </div>
 </div>
+
+<script>
+
+    const token_A = document.querySelector("#id_token_input_A")
+    const token_B = document.querySelector("#id_token_input_B")
+
+    token_A.addEventListener("keyup" , get_token_list)
+    token_B.addEventListener("keyup" , get_token_list)
+    function get_token_list(ev){
+        let input_value = ev.target.value
+        console.log(input_value)
+    }
+
+
+</script>
 
 {% endblock content %}
