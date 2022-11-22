@@ -35,9 +35,11 @@
 </div>
 
 <script>
+    // Helper function for getting element from the DOM
+    const getEl = selector => document.querySelector(selector);
 
-    const token_A = document.querySelector("#id_token_input_A")
-    const token_B = document.querySelector("#id_token_input_B")
+    const token_A = getEl("#id_token_input_A")
+    const token_B = getEl("#id_token_input_B")
 
     token_A.addEventListener("keyup" , get_token_list)
     token_B.addEventListener("keyup" , get_token_list)
@@ -46,6 +48,50 @@
         console.log(input_value)
     }
 
+    /*----------------------------
+    Backend request for token data
+    ------------------------------*/
+
+    // This will be used to provide the csrf token to Django and allow the post
+    // request to go through
+    const csrfToken = '{{ csrf_token }}'
+
+    getTokensOnInput();
+
+    // Waits for user to enter at least 2 characters into the input box, then runs
+    // the backend request
+    function getTokensOnInput() {
+        token_A.addEventListener('keyup', ev => {
+            if (token_A.value.length >= 2) {       
+              sendRequestForTokens(token_A.value).then(data => console.log(data));
+            }
+        });
+    }
+
+    // When user enters text, call api from backend
+    // TODO - Need to figure out how to get POST request working...
+    // TODO - May need to enable CORS in Django when this is deployed
+    async function sendRequestForTokens(token_query) {
+        /*return (
+          await fetch('', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {'Accept': 'application/json', 'X-CSRFToken': csrfToken},
+            body: JSON.stringify({'token_query' : token_query})
+          })).json();*/
+        let response = await fetch('', {
+          //method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json', 
+            //'X-CSRFToken': csrfToken
+          },
+          //body: JSON.stringify({'token_query': token_query})
+        });
+        let json = await response.json();
+        return json;
+      }
 
 </script>
 
