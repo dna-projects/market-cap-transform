@@ -12,31 +12,30 @@ class InitialPageView(FormView):
     form_B = TokenFormB
 
     def get(self, request):
-        if request.accepts('text/html'):
-            # UNCOMMENT TO make covalent API request 
-            # NOTE - Must add COVALENT_API_KEY='...api key...' to .env file
+        # UNCOMMENT TO make covalent API request 
+        # NOTE - Must add COVALENT_API_KEY='...api key...' to .env file
 
-            # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
-            # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
-            # print(token_list)
+        # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
+        # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
+        # print(token_list)
 
-            # NOTE - Uncomment to make coingecko api request
-            # search = get_coingecko_data("evmos")
-            # print(search["coins"][0]["id"])
-            return render(request, self.template_name, {"form_A":self.form_A , "form_B":self.form_B})
-        else:
-            # When the JS from the frontend makes a post request, Django
-            # will return data using JsonResponse 
-
-            # data_from_post = json.load(request)['token_query']
-            # Django prefers the data given to the frontend is a dictionary
-            data = {'test': 'a test!'}
-            return JsonResponse(data)
-
+        # NOTE - Uncomment to make coingecko api request
+        # search = get_coingecko_data("evmos")
+        # print(search["coins"][0]["id"])
+        return render(request, self.template_name, {"form_A":self.form_A , "form_B":self.form_B})
+            
     # TODO - Pass data (token a, token b) into TransformPageView
     # TODO - Check if redirect works (first add form to template file)
     def post(self, request):
-        return redirect('transform')
+        # When the JS from the frontend makes a post request, Django
+        # will return data using JsonResponse 
+        if request.accepts('application/json'):
+            data_from_post = json.load(request)['token_query']
+            print(f"User entered: {data_from_post}")
+            test_transforming_data = f"Found {data_from_post}"
+            # Django prefers the data given to the frontend is a dictionary
+            data = {'test': test_transforming_data}
+            return JsonResponse(data)
 
 class TransformPageView(TemplateView):
     template_name = "transform.html"
