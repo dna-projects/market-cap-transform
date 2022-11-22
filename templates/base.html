@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,9 @@
     <title>Docker + Django!</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Maven+Pro&display=swap" rel="stylesheet">
     <style>
         body {
             background-image: url("{% static '/images/background-image.png' %}");
@@ -19,34 +23,31 @@
 <body>
     <div class="bg-gradient">
         <div class="container mx-auto">
-            <div class="flex flex-col h-screen">
+            <div class="flex flex-col justify-between h-screen">
 
-                <!-- Nav bar start -->
-                <div class="grid grid-cols-3 py-4">
-                    <div class="flex col-start-2 text-white">
-                        <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
-                        <p class="flex self-center text-xl tracking-widest -ml-6">futurecap</p>
+                <!-- Start wrapper for nav bar and main content -->
+                <div class="flex flex-col">
+
+                    <!-- Nav bar start -->
+                    <div class="grid grid-cols-3 py-4">
+                        <div class="flex justify-center col-start-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
+                            <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
+                            <p class="font-inter flex self-center text-xl tracking-widest -ml-6">futurecap</p>
+                        </div>
+                        <button class="rounded-full col-start-3 justify-self-end mr-10 sm:mr-2" type="button" onclick="settingsDropdown()">
+                            <img id="settings-icon" src="{% static "svg/settings-icon.svg" %}" alt="Settings Icon">
+                        </button>
                     </div>
-                    <button class="rounded-full col-start-3 justify-self-end" type="button" onclick="settingsDropdown()">
-                        <svg
-                            fill="white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 72 72"
-                            width="40px"
-                            height="40px"
-                            class="mr-3"
-                            >
-                            <path d="M56 48c2.209 0 4 1.791 4 4 0 2.209-1.791 4-4 4-1.202 0-38.798 0-40 0-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4C17.202 48 54.798 48 56 48zM56 32c2.209 0 4 1.791 4 4 0 2.209-1.791 4-4 4-1.202 0-38.798 0-40 0-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4C17.202 32 54.798 32 56 32zM56 16c2.209 0 4 1.791 4 4 0 2.209-1.791 4-4 4-1.202 0-38.798 0-40 0-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4C17.202 16 54.798 16 56 16z"/>
-                        </svg>
-                    </button>
-                </div>
-                <!-- Nav bar end -->
+                    <!-- Nav bar end -->
 
-                <!-- Center div start -->
-                <div class="flex flex-col self-center h-[550px] w-5/6 box-shadow-main main-content transition ease-in-out duration-[1200ms] hover:scale-[1.02]">
-                    {% block content %} {% endblock content %}
+                    <!-- Center div start -->
+                    <div class="main-content box-shadow-main font-mavenpro flex flex-col self-center h-[550px] w-5/6 transition ease-in-out duration-[1200ms] hover:scale-[1.02] mt-3 sm:h-[500px] sm:mt-10">
+                        {% block content %} {% endblock content %}
+                    </div>
+                    <!-- Center div end -->
+
                 </div>
-                <!-- Center div end -->
+                <!-- End wrapper for nav bar and main content -->
 
                 <!-- Footer start -->
                 <div class="flex self-center place-self-end w-48">
