@@ -19,11 +19,11 @@ def get_covalent_data(token_id, endpoint):
     except HTTPError as err:
         print("Http error:", err)
 
-def get_coingecko_data(search_key):
-    base_url = 'https://api.coingecko.com/api/v3/search?'
+def get_coingecko_data(url, search_key, input_parameters):
+    base_url = url
     # api_key = config('COVALENT_API_KEY')
     # complete_url = f'{base_url}/{token_id}/{endpoint}'
-    parameters = {'query': search_key}
+    parameters = {input_parameters: search_key}
 
     # Attempt to get data and handle errors along the way
     try:

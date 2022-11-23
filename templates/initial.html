@@ -40,6 +40,12 @@
 
     const token_A = getEl("#id_token_input_A")
     const token_B = getEl("#id_token_input_B")
+    token_A.addEventListener("input" , validate)
+    // Prevent space from being first input
+    function validate(input){
+      if(/^\s/.test(input.target.value))
+        input.target.value = '';
+    }
 
     token_B.addEventListener("keyup" , get_token_list)
     function get_token_list(ev){
@@ -61,7 +67,7 @@
     // the backend request
     function getTokensOnInput() {
         token_A.addEventListener('keyup', ev => {
-            if (token_A.value.length >= 2) {       
+            if (token_A.value.length >= 2) {
               sendRequestForTokens(token_A.value).then(data => console.log(data));
             }
         });

@@ -23,19 +23,30 @@ class InitialPageView(FormView):
         # search = get_coingecko_data("evmos")
         # print(search["coins"][0]["id"])
         return render(request, self.template_name, {"form_A":self.form_A , "form_B":self.form_B})
-            
+
     # TODO - Pass data (token a, token b) into TransformPageView
     # TODO - Check if redirect works (first add form to template file)
     def post(self, request):
         # When the JS from the frontend makes a post request, Django
-        # will return data using JsonResponse 
+        # will return data using JsonResponse
         if request.accepts('application/json'):
             data_from_post = json.load(request)['token_query']
-            print(f"User entered: {data_from_post}")
-            test_transforming_data = f"Found {data_from_post}"
+            first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", data_from_post, "query")
             # Django prefers the data given to the frontend is a dictionary
-            data = {'test': test_transforming_data}
-            return JsonResponse(data)
+            try:
+                token_id = {'token_data': first_api_call["coins"][0]["id"]}
+            except:
+                print("could not find token part 1")
+                token_id = {}
+            # Second API call
+            token_data = {}
+            try:
+                second_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_id["token_data"], "ids")
+                token_data = {'token_price': second_api_call[0]["current_price"] , 'token_market_cap': second_api_call[0]["market_cap"]}
+            except:
+                print("could not find token part 2")
+                token_data = {}
+            return JsonResponse(token_data)
 
 class TransformPageView(TemplateView):
     template_name = "transform.html"
