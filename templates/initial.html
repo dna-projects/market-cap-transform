@@ -35,68 +35,51 @@
 </div>
 
 <script>
-    // Helper function for getting element from the DOM
-    const getEl = selector => document.querySelector(selector);
+  // Helper function for getting element from the DOM
+  const getEl = selector => document.querySelector(selector);
+  const token_A = getEl("#id_token_input_A");
+  const token_B = getEl("#id_token_input_B");
+  // Get csrftoken to give to Django and let the post request go through
+  let csrfToken = '{{ csrf_token }}';
+    
+  token_A.addEventListener("input" , validate);
+  token_B.addEventListener("input" , validate);
 
-    const token_A = getEl("#id_token_input_A")
-    const token_B = getEl("#id_token_input_B")
-    token_A.addEventListener("input" , validate)
-    // Prevent space from being first input
-    function validate(input){
-      if(/^\s/.test(input.target.value))
-        input.target.value = '';
+  // Wait for user to input >=2 characters, then run the
+  // backend request
+  // TODO - Do something with this data (add to dropdown list
+  // 		- Should this be document body or even more specific?
+  document.body.addEventListener("keyup", ev => {
+    if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
+      sendRequestForTokens(ev.target.value)
+        .then(data => console.log(data));
     }
+  });
 
-    token_B.addEventListener("keyup" , get_token_list)
-    function get_token_list(ev){
-        let input_value = ev.target.value
-        console.log(input_value)
-    }
+  // Prevent space from being first input
+  function validate(ev) {
+    // ^  - start of sentence 
+    // \s - space character
+    if(/^\s/.test(ev.target.value))
+      ev.target.value = '';
+  }
 
-    /*----------------------------
-    Backend request for token data
-    ------------------------------*/
-
-    // This will be used to provide the csrf token to Django and allow the post
-    // request to go through
-    let csrfToken = '{{ csrf_token }}'
-
-    getTokensOnInput();
-
-    // Waits for user to enter at least 2 characters into the input box, then runs
-    // the backend request
-    function getTokensOnInput() {
-        token_A.addEventListener('keyup', ev => {
-            if (token_A.value.length >= 2) {
-              sendRequestForTokens(token_A.value).then(data => console.log(data));
-            }
-        });
-    }
-
-    // When user enters text, call api from backend
-    // TODO - May need to enable CORS in Django when this is deployed
-    async function sendRequestForTokens(token_query) {
-        /*return (
-          await fetch('', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {'Accept': 'application/json', 'X-CSRFToken': csrfToken},
-            body: JSON.stringify({'token_query' : token_query})
-          })).json();*/
-        let response = await fetch('', {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: {
-            'Accept': 'application/json', 
-            'Content-Type': 'application/json', 
-            'X-CSRFToken': csrfToken
-          },
-          body: JSON.stringify({'token_query': token_query})
-        });
-        let json = await response.json();
-        return json;
-      }
-
+  // As user inputs text, query the backend and receive data from api call
+  // NOTE - May need to enable CORS in Django when this is deployed on Railway
+  async function sendRequestForTokens(token_query) {
+    let response = await fetch('', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+      'Accept': 'application/json', 
+      'Content-Type': 'application/json', 
+      'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({'token_query': token_query})
+    });
+    let json = await response.json();
+    return json;
+  }
 </script>
 
 {% endblock content %}
