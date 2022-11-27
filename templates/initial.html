@@ -45,16 +45,18 @@
   token_A.addEventListener("input" , validate);
   token_B.addEventListener("input" , validate);
 
-  // Wait for user to input >=2 characters, then run the
-  // backend request
-  // TODO - Do something with this data (add to dropdown list
-  // 		- Should this be document body or even more specific?
-  document.body.addEventListener("keyup", ev => {
-    if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
-      sendRequestForTokens(ev.target.value)
-        .then(data => console.log(data));
-    }
-  });
+
+  // Add a delay before a function will run (does not backlog function calls)
+  const debounce = (func, delay) => {
+    let timer; // keep track of current timer
+  
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, delay); // start the timer
+    };
+  };
 
   // Prevent space from being first input
   function validate(ev) {
@@ -80,6 +82,18 @@
     let json = await response.json();
     return json;
   }
+
+  // Wait for user to input >=2 characters, then run the
+  // backend request
+  // TODO - Do something with this data (add to dropdown list
+  // 		- Should this be document body or even more specific?
+  // TODO - Is 250 ms a good delay for the input?
+  document.body.addEventListener("keyup", debounce(ev => {
+    if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
+      sendRequestForTokens(ev.target.value)
+        .then(data => console.log(data));
+    }
+  }, 250));
 </script>
 
 {% endblock content %}
