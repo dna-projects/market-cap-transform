@@ -1,7 +1,7 @@
-<div class="add-token box-shadow-add-token flex justify-center self-center h-[110px] w-[175px]">
-    <div class="add-token flex self-center h-[45px] w-[145px]">
+<div class="add-token box-shadow-add-token flex justify-center self-center h-[110px] w-[175px] md:w-[240px]">
+    <div class="add-token flex self-center h-[45px] w-[145px] md:w-5/6">
         <!-- <input id={{id}} value= 'Add Token {{default_text}}' class="overflow-x-auto bg-transparent text-[#FFFFFF] pl-2"></input> -->
-    <!-- Action prevents user from pressing enter -->     
+    <!-- Action prevents user from pressing enter -->
     <form action="javascript:void(0)" method="post">
         {% csrf_token %}
         {{ form.as_p }}
