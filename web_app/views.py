@@ -30,7 +30,9 @@ class InitialPageView(FormView):
         # When the JS from the frontend makes a post request, Django
         # will return data using JsonResponse
         if request.accepts('application/json'):
-            data_from_post = json.load(request)['token_query']
+            json_data = json.load(request)
+            data_from_post = json_data['token_query']
+            input_name = json_data['token_id']
             first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", data_from_post, "query")
             # Django prefers the data given to the frontend is a dictionary
             try:
@@ -38,15 +40,8 @@ class InitialPageView(FormView):
             except:
                 print("could not find token part 1")
                 token_id = {}
-            # Second API call
-            token_data = {}
-            try:
-                second_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_id["token_data"], "ids")
-                token_data = {'token_price': second_api_call[0]["current_price"] , 'token_market_cap': second_api_call[0]["market_cap"]}
-            except:
-                print("could not find token part 2")
-                token_data = {}
-            return JsonResponse(token_data)
+            request.session[input_name] = token_id
+            return JsonResponse({})
 
 class TransformPageView(TemplateView):
     template_name = "transform.html"
@@ -59,12 +54,28 @@ class TransformPageView(TemplateView):
         price: float = None
         percentage: float = None
 
-    token_a = Token('Evmos', '💸', 451.23, 297)
-
     # TODO - Figure out how to handle what happens when the name 
     # spans onto a separate line. 
-    token_b = Token('Cryptocurrency with super long name...')
 
     def get(self, request):
-        return render(request, self.template_name, 
-            {"token_a": self.token_a, "token_b": self.token_b})
+
+        # Second API call
+        token_a_id = request.session["id_token_input_A"]
+        token_a_info = {}
+        token_b_id = request.session["id_token_input_B"]
+        token_b_info = {}
+        try:
+            second_api_call_token_a = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_a_id["token_data"], "ids")
+            token_a_info = {'token_price': second_api_call_token_a[0]["current_price"] , 'token_market_cap': second_api_call_token_a[0]["market_cap"]}
+            second_api_call_token_b = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_b_id["token_data"], "ids")
+            token_b_info = {'token_price': second_api_call_token_b[0]["current_price"] , 'token_market_cap': second_api_call_token_b[0]["market_cap"]}
+        except:
+            print("could not find token part 2")
+            token_a_info = {}
+            token_b_info = {}
+
+        token_a = self.Token(token_a_id["token_data"], '💸', token_b_info["token_market_cap"] / token_a_info["token_market_cap"] * token_a_info["token_price"], token_b_info["token_market_cap"] / token_a_info["token_market_cap"] * 100)
+        token_b = self.Token(token_b_id["token_data"], '💸', token_b_info["token_price"], 297)
+
+        return render(request, self.template_name,
+            {"token_a": token_a, "token_b": token_b, "token_a_price": token_a_info, "token_b_price": token_b_info})

@@ -27,13 +27,15 @@ TODO - Probably remove the ids as long as backend is working. JS seems overkill 
 <!-- Tranformed content -->
 <div id="output" class="flex flex-col self-center">
     <div class="sm:my-8">
-        <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-lg">{{ token_a.name }} with the market cap of {{ token_b.name }}</p>
+        <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-lg">
+            {{ token_a.name | capfirst }} with the market cap of {{ token_b.name | capfirst}}
+        </p>
     </div>
     <!-- Token A with new market cap value -->
     <div class="font-inter flex self-center gap-6">
         <div id="token-A-image" class="self-center text-3xl sm:text-5xl">{{ token_a.img }}</div>
-        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">${{ token_a.price }}</div>
-        <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">{{ token_a.percentage }}%</div>
+        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">${{ token_a.price | floatformat:2}}</div>
+        <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">{{ token_a.percentage | floatformat:2 }}%</div>
     </div>
 </div>
 
