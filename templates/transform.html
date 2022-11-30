@@ -8,27 +8,32 @@ TODO - Update input div based on final version of initial.html
 TODO - Add data attribute so that whatever tokens were selected in initial
        will show up selected when redirected to this page
 -->
-<div id="input" class="flex flex-col w-full mt-10">
+<div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
     {% include "components/add-token.html" with default_text="TokenA" id="token-A" %}
-    <div class="flex flex-col self-center gap-1 py-2">
-        <div class="shadow bg-[#FF4B32] w-2 h-2 rounded-full"></div>
-        <div class="shadow bg-[#1BBEF1] w-2 h-2 rounded-full"></div>
-        <div class="shadow bg-[#00FFC2] w-2 h-2 rounded-full"></div>
+    <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
+        <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
+        <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full md:w-[10px] md:h-[10px]"></div>
+        <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
     {% include "components/add-token.html" with default_text="TokenB" id="token-B" %}
 </div>
 
-<!-- 
+<!--
 TODO - Probably remove the ids as long as backend is working. JS seems overkill here...
 -->
+
+<!-- Tranformed content -->
 <div id="output" class="flex flex-col self-center">
-    <p id="market-cap-text" class="text-white my-10">{{ token_a.name }} with the market cap of {{ token_b.name }}</p>
-    <div id="final-market-cap" class="flex self-center justify-around">
-        <div id="token-A-image">{{ token_a.img }}</div>
-        <div id="token-A-price" class="text-white text-2xl self-end">${{ token_a.price }}</div>
-        <div id="token-A-percentage" class="text-green-300 self-end">{{ token_a.percentage }}%</div>
+    <div class="sm:my-8">
+        <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-lg">{{ token_a.name }} with the market cap of {{ token_b.name }}</p>
+    </div>
+    <!-- Token A with new market cap value -->
+    <div class="font-inter flex self-center gap-6">
+        <div id="token-A-image" class="self-center text-3xl sm:text-5xl">{{ token_a.img }}</div>
+        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">${{ token_a.price }}</div>
+        <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">{{ token_a.percentage }}%</div>
     </div>
 </div>
 
