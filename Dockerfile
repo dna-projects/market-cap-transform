@@ -10,6 +10,8 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 ENV PYTHONDONTWRITEBYTECODE 1
 # prevent python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED 1
+# Establish port for django run command to work properly
+ENV PORT 8000
 
 # Copy requirements.text (for pip install) to the work directory
 COPY ./requirements.txt .
@@ -19,3 +21,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy django project into container
 COPY . .
+
+#CMD python manage.py runserver 0.0.0.0:$PORT
+CMD python manage.py collectstatic --no-input; gunicorn -b 0.0.0.0:$PORT django_core.wsgi
