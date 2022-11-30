@@ -19,6 +19,9 @@ COPY ./requirements.txt .
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Add static directory
+RUN mkdir -p /user/src/webapp/staticfiles
+
 # Copy django project into container
 COPY . .
 
