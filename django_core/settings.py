@@ -25,8 +25,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Need to allow local host for docker to work
-# TODO - Add Railway hostname once all setup
-ALLOWED_HOSTS = []
+# TODO - Remove 127.0.0.1 for deployed version
+ALLOWED_HOSTS = ['futurecap.up.railway.app', '127.0.0.1']
 
 
 # Application definition
