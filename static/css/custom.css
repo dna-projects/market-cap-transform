@@ -4,9 +4,8 @@
 
 /* Solid border color */
 .main-content {
-    border:1px solid #0000;
+    border:1px solid rgba(103, 225, 241, .75);
     border-radius:12px;
-    border-color: #67e1f1;
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 36, 70, 0.5) 100%);
 }
