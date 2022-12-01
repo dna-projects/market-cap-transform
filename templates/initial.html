@@ -5,14 +5,23 @@
 
 <div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
-    {% include "components/add-token.html" with form=form_A %}
+    <div class="add-token box-shadow-add-token flex flex-col justify-center self-center relative h-[110px] w-[175px] md:w-[240px]">
+      <div class="add-token flex self-center absolute h-[45px] w-[145px] md:w-5/6">
+        {% include "components/add-token.html" with form=form_A %}
+      </div>
+    </div>
+    <!-- connecting circles -->
     <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
         <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
         <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full md:w-[10px] md:h-[10px]"></div>
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
-    {% include "components/add-token.html" with form=form_B %}
+    <div class="add-token box-shadow-add-token flex flex-col justify-center self-center relative h-[110px] w-[175px] md:w-[240px]">
+      <div class="add-token flex self-center absolute h-[45px] w-[145px] md:w-5/6">
+        {% include "components/add-token.html" with form=form_B %}
+      </div>
+    </div>
 </div>
 
 <!-- Initial content -->
@@ -89,12 +98,22 @@
   // 		- Should this be document body or even more specific?
   // TODO - Is 250 ms a good delay for the input?
 
+  // const dropdown_A = document.getElementById("show-dropdown-A");
+  const dropdown_B = document.getElementById("inputB_dropdown");
+
   document.body.addEventListener("keyup", debounce(ev => {
     if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
       sendRequestForTokens(ev.target.id, ev.target.value)
         .then(data => console.log(data));
+        dropdown_B.style.display = "flex";
+    } else {
+      dropdown_B.style.display = "none";
     }
   }, 250));
+
+//   document.querySelector('.add-token').addEventListener('click', function () {
+//   this.classList.toggle('dropdown')
+// })
 </script>
 
 {% endblock content %}
