@@ -13,6 +13,7 @@
     </div>
     <!-- token B -->
     {% include "components/add-token.html" with form=form_B %}
+    
 </div>
 
 <!-- Initial content -->
@@ -44,7 +45,6 @@
     
   token_A.addEventListener("input" , validate);
   token_B.addEventListener("input" , validate);
-
 
   // Add a delay before a function will run (does not backlog function calls)
   const debounce = (func, delay) => {
@@ -90,8 +90,7 @@
   // TODO - Is 250 ms a good delay for the input?
   document.body.addEventListener("keyup", debounce(ev => {
     if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
-      sendRequestForTokens(ev.target.id, ev.target.value)
-        .then(data => console.log(data));
+      sendRequestForTokens(ev.target.id, ev.target.value);
     }
   }, 250));
 </script>

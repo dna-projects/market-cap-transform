@@ -42,6 +42,8 @@ class InitialPageView(FormView):
                 token_id = {}
             request.session[input_name] = token_id
             return JsonResponse({})
+        else:
+            return redirect('transform')
 
 class TransformPageView(TemplateView):
     template_name = "transform.html"
@@ -58,7 +60,7 @@ class TransformPageView(TemplateView):
     # spans onto a separate line. 
 
     def get(self, request):
-
+        print('tep')
         # Second API call
         token_a_id = request.session["id_token_input_A"]
         token_a_info = {}
