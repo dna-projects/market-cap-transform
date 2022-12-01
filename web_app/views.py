@@ -18,9 +18,9 @@ class InitialPageView(FormView):
         # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
         # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
         # print(token_list)
+
         return render(request, self.template_name, {"form_A":self.form_A , "form_B":self.form_B})
 
-    # TODO - Check if redirect works (first add form to template file)
     def post(self, request):
         # When the JS from the frontend makes a post request, Django
         # will return data using JsonResponse
@@ -38,6 +38,7 @@ class InitialPageView(FormView):
             request.session[input_name] = token_id
             return JsonResponse({})
         else:
+            # TODO - Check if redirect works (first add form to template file)
             return redirect('transform')
 
 class TransformPageView(TemplateView):
@@ -51,6 +52,14 @@ class TransformPageView(TemplateView):
         price: float = None
         transform_price: float = None
         percentage: float = None
+
+    def calculate_percentage(self, market_cap_a, market_cap_b):
+        # Based on which token has the larger marketcap
+        calculation = max(market_cap_a, market_cap_b) / min(market_cap_a, market_cap_b) * 100
+        # Set to negative when token a is larger
+        if market_cap_a > market_cap_b:
+            calculation *= - 1
+        return calculation
 
     # TODO - Figure out how to handle what happens when the name 
     # spans onto a separate line. 
@@ -75,16 +84,13 @@ class TransformPageView(TemplateView):
                 'img_url': second_api_call_token_a[0]["image"]
             }
 
-            # TODO - When transforming from high marketcap coin to low marketcap coin,
-            #        the percent is WRONG 
-
             # Setup each token
             token_a = self.Token(
                 token_a_id["token_data"], 
                 token_a_info["img_url"], 
                 token_a_info["price"],
                 token_b_info["market_cap"] / token_a_info["market_cap"] * token_a_info["price"], 
-                token_b_info["market_cap"] / token_a_info["market_cap"] * 100
+                self.calculate_percentage(token_a_info["market_cap"], token_b_info["market_cap"])
             )
 
             token_b = self.Token(
