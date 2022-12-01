@@ -37,7 +37,12 @@
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
         linear-gradient(#2f36ff, #67e1f1) border-box;
+    /* transition: height 1s; */
 }
+
+/* .add-token.dropdown {
+    height: 200px;
+} */
 
 /* Add token input box shadow */
 .box-shadow-add-token {

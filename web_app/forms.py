@@ -6,7 +6,6 @@ class TokenFormA(Form):
     token_input_A = CharField(
         max_length = 35,
         widget=TextInput(attrs={
-            'label' : " ",
             'placeholder' : 'Enter token A...',
         })
     )
