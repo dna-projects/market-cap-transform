@@ -18,13 +18,8 @@ class InitialPageView(FormView):
         # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
         # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
         # print(token_list)
-
-        # NOTE - Uncomment to make coingecko api request
-        # search = get_coingecko_data("evmos")
-        # print(search["coins"][0]["id"])
         return render(request, self.template_name, {"form_A":self.form_A , "form_B":self.form_B})
 
-    # TODO - Pass data (token a, token b) into TransformPageView
     # TODO - Check if redirect works (first add form to template file)
     def post(self, request):
         # When the JS from the frontend makes a post request, Django
@@ -54,13 +49,13 @@ class TransformPageView(TemplateView):
         name: str
         img: str = None
         price: float = None
+        transform_price: float = None
         percentage: float = None
 
     # TODO - Figure out how to handle what happens when the name 
     # spans onto a separate line. 
 
     def get(self, request):
-        print('tep')
         # Second API call
         token_a_id = request.session["id_token_input_A"]
         token_a_info = {}
@@ -68,16 +63,40 @@ class TransformPageView(TemplateView):
         token_b_info = {}
         try:
             second_api_call_token_a = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_a_id["token_data"], "ids")
-            token_a_info = {'token_price': second_api_call_token_a[0]["current_price"] , 'token_market_cap': second_api_call_token_a[0]["market_cap"]}
+            token_a_info = {
+                'price': second_api_call_token_a[0]["current_price"] , 
+                'market_cap': second_api_call_token_a[0]["market_cap"],
+                'img_url': second_api_call_token_a[0]["image"]
+            }
             second_api_call_token_b = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_b_id["token_data"], "ids")
-            token_b_info = {'token_price': second_api_call_token_b[0]["current_price"] , 'token_market_cap': second_api_call_token_b[0]["market_cap"]}
+            token_b_info = {
+                'price': second_api_call_token_b[0]["current_price"] , 
+                'market_cap': second_api_call_token_b[0]["market_cap"],
+                'img_url': second_api_call_token_a[0]["image"]
+            }
+
+            # TODO - When transforming from high marketcap coin to low marketcap coin,
+            #        the percent is WRONG 
+
+            # Setup each token
+            token_a = self.Token(
+                token_a_id["token_data"], 
+                token_a_info["img_url"], 
+                token_a_info["price"],
+                token_b_info["market_cap"] / token_a_info["market_cap"] * token_a_info["price"], 
+                token_b_info["market_cap"] / token_a_info["market_cap"] * 100
+            )
+
+            token_b = self.Token(
+                token_b_id["token_data"], 
+                token_b_info["img_url"], 
+                token_b_info["price"], 
+                percentage=297
+            )
         except:
-            print("could not find token part 2")
+            print("No results...")
             token_a_info = {}
             token_b_info = {}
 
-        token_a = self.Token(token_a_id["token_data"], '💸', token_b_info["token_market_cap"] / token_a_info["token_market_cap"] * token_a_info["token_price"], token_b_info["token_market_cap"] / token_a_info["token_market_cap"] * 100)
-        token_b = self.Token(token_b_id["token_data"], '💸', token_b_info["token_price"], 297)
-
         return render(request, self.template_name,
-            {"token_a": token_a, "token_b": token_b, "token_a_price": token_a_info, "token_b_price": token_b_info})
+            {"token_a": token_a, "token_b": token_b})

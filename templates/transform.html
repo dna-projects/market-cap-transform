@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load humanize %}
 {% block content %}
 
 <!-- 
@@ -33,9 +33,11 @@ TODO - Probably remove the ids as long as backend is working. JS seems overkill 
     </div>
     <!-- Token A with new market cap value -->
     <div class="font-inter flex self-center gap-6">
-        <div id="token-A-image" class="self-center text-3xl sm:text-5xl">{{ token_a.img }}</div>
-        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">${{ token_a.price | floatformat:2}}</div>
-        <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">{{ token_a.percentage | floatformat:2 }}%</div>
+        <div id="token-A-image" class="self-center">
+            <img class="w-10" src="{{ token_a.img }}" alt="Token A Logo">
+        </div>
+        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">${{ token_a.transform_price | floatformat:2 | intcomma}}</div>
+        <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">{{ token_a.percentage | floatformat:2 | intcomma}}%</div>
     </div>
 </div>
 
