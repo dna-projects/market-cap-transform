@@ -16,7 +16,9 @@ ENV PORT 8000
 # Copy requirements.text (for pip install) to the work directory
 COPY ./requirements.txt .
 
-# Install dependencies
+RUN apk add nginx
+
+# Install python-based dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Add static directory
