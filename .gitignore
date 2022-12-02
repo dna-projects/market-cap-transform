@@ -10,4 +10,4 @@ node_modules
 # Temporarily removed style.css to test out having this file
 # included for deployment purposes
 
-# style.css
+style.css
