@@ -7,4 +7,7 @@ __pycache__/
 db.sqlite3
 .env
 node_modules
-style.css
+# Temporarily removed style.css to test out having this file
+# included for deployment purposes
+
+# style.css
