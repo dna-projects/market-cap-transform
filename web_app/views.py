@@ -3,23 +3,20 @@ from django.http import JsonResponse
 from django.views.generic import TemplateView, FormView
 from django.shortcuts import render, redirect
 from web_app.services import get_covalent_data, get_coingecko_data
-from web_app.forms import TokenFormA, TokenFormB
+from web_app.forms import TokenForm
 import json
 
 class InitialPageView(FormView):
     template_name = "initial.html"
-    form_A = TokenFormA
-    form_B = TokenFormB
+    form_class = TokenForm
 
-    def get(self, request):
-        # UNCOMMENT TO make covalent API request 
-        # NOTE - Must add COVALENT_API_KEY='...api key...' to .env file
+    #     # UNCOMMENT TO make covalent API request 
+    #     # NOTE - Must add COVALENT_API_KEY='...api key...' to .env file
 
-        # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
-        # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
-        # print(token_list)
+    #     # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
+    #     # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
+    #     # print(token_list)
 
-        return render(request, self.template_name, {"form_A":self.form_A , "form_B":self.form_B})
 
     def post(self, request):
         # When the JS from the frontend makes a post request, Django
@@ -36,7 +33,8 @@ class InitialPageView(FormView):
                 print("could not find token part 1")
                 token_id = {}
             request.session[input_name] = token_id
-            return JsonResponse({})
+            token_list = {'token_list' : first_api_call["coins"]}
+            return JsonResponse(token_list)
         else:
             # TODO - Check if redirect works (first add form to template file)
             return redirect('transform')
