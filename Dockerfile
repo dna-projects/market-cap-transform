@@ -25,4 +25,4 @@ RUN mkdir -p /user/src/webapp/staticfiles
 # Copy django project into container
 COPY . .
 
-CMD python manage.py collectstatic --no-input; gunicorn --workers=4 -b 0.0.0.0 django_core.wsgi --timeout 120
+CMD python manage.py collectstatic --no-input; gunicorn --workers=2 -b 0.0.0.0 django_core.wsgi
