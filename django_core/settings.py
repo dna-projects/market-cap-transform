@@ -29,6 +29,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # TODO - Remove 127.0.0.1 for deployed version
 ALLOWED_HOSTS = ['futurecap.up.railway.app', 'localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['futurecap.up.railway.app']
+
 
 # Application definition
 
