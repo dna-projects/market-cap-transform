@@ -41,7 +41,8 @@ class InitialPageView(FormView):
             for token_data in token_records:
                 if token_query in token_data['name'].lower() or token_query in token_data['symbol'].lower():
                     coin_info_by_addr = get_coingecko_data(f"https://api.coingecko.com/api/v3/coins/evmos/contract/{token_data['address']}")
-                    print(coin_info_by_addr['id'], "- from CoinGecko")
+                    if coin_info_by_addr:
+                        print(coin_info_by_addr['id'], "- from CoinGecko")
                     print(token_data['name'], "- from Covalent")
 
             # Django prefers the data given to the frontend is a dictionary
