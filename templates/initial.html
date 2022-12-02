@@ -6,7 +6,7 @@
 <div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
     <div class="add-token box-shadow-add-token flex flex-col justify-center self-center relative h-[110px] w-[175px] md:w-[240px]">
-      <div class="add-token flex self-center absolute h-[45px] w-[145px] md:w-5/6">
+      <div class="add-token-dropdown-A flex self-center absolute h-[45px] w-[145px] md:w-5/6">
         {% include "components/add-token.html" with form=form_A %}
       </div>
     </div>
@@ -18,7 +18,7 @@
     </div>
     <!-- token B -->
     <div class="add-token box-shadow-add-token flex flex-col justify-center self-center relative h-[110px] w-[175px] md:w-[240px]">
-      <div class="add-token flex self-center absolute h-[45px] w-[145px] md:w-5/6">
+      <div class="add-token-dropdown-B flex self-center absolute h-[45px] w-[145px] md:w-5/6">
         {% include "components/add-token.html" with form=form_B %}
       </div>
     </div>
@@ -98,22 +98,33 @@
   // 		- Should this be document body or even more specific?
   // TODO - Is 250 ms a good delay for the input?
 
-  // const dropdown_A = document.getElementById("show-dropdown-A");
-  const dropdown_B = document.getElementById("inputB_dropdown");
-
   document.body.addEventListener("keyup", debounce(ev => {
     if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
       sendRequestForTokens(ev.target.id, ev.target.value)
         .then(data => console.log(data));
-        dropdown_B.style.display = "flex";
-    } else {
-      dropdown_B.style.display = "none";
     }
   }, 250));
 
-//   document.querySelector('.add-token').addEventListener('click', function () {
-//   this.classList.toggle('dropdown')
-// })
+// Drop down toggle
+
+const showlist = document.getElementById("showlist")
+
+  document.querySelector('.add-token-dropdown-A').addEventListener("keyup", function(ev) {
+    if (ev.target.value.length >=2) {
+      this.classList.toggle('dropdown');
+      showlist.style.display = "block";
+    } else{
+      showlist.style.display = "none";
+    }
+})
+
+  document.querySelector('.add-token-dropdown-B').addEventListener("keyup", function(ev) {
+    if (ev.target.value.length >=2) {
+      this.classList.toggle('dropdown');
+    } else{
+      showlist.style.display = "none";
+    }
+})
 </script>
 
 {% endblock content %}
