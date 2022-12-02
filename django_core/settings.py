@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Need to allow local host for docker to work
 # TODO - Remove 127.0.0.1 for deployed version
-ALLOWED_HOSTS = ['futurecap.up.railway.app', '127.0.0.1']
+ALLOWED_HOSTS = ['futurecap.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -130,3 +131,19 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO - Setup CSRF_COOKIE_SECURE and SESSION_COOKIE_SECURE. This is for https
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
