@@ -1,13 +1,7 @@
 {% extends "base.html" %}
-
+{% load humanize %}
 {% block content %}
 
-<!-- 
-TODO - Update input div based on final version of initial.html
-
-TODO - Add data attribute so that whatever tokens were selected in initial
-       will show up selected when redirected to this page
--->
 <div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
     {% include "components/add-token.html" with default_text="TokenA" id="token-A" %}
@@ -20,22 +14,30 @@ TODO - Add data attribute so that whatever tokens were selected in initial
     {% include "components/add-token.html" with default_text="TokenB" id="token-B" %}
 </div>
 
-<!--
-TODO - Probably remove the ids as long as backend is working. JS seems overkill here...
--->
-
 <!-- Tranformed content -->
 <div id="output" class="flex flex-col self-center">
     <div class="sm:my-8">
-        <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-lg">
-            {{ token_a.name | capfirst }} with the market cap of {{ token_b.name | capfirst}}
+        <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-xl">
+            {{ token_a.name | capfirst }} with the market cap of {{ token_b.name | capfirst }}
         </p>
     </div>
     <!-- Token A with new market cap value -->
     <div class="font-inter flex self-center gap-6">
-        <div id="token-A-image" class="self-center text-3xl sm:text-5xl">{{ token_a.img }}</div>
-        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">${{ token_a.price | floatformat:2}}</div>
-        <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">{{ token_a.percentage | floatformat:2 }}%</div>
+        <div id="token-A-image" class="self-center">
+            <img class="w-10" src="{{ token_a.img }}" alt="Token A Logo">
+        </div>
+        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">
+            ${{ token_a.transform_price | floatformat:2 | intcomma }}
+        </div>
+        {% if token_a.percentage > 0 %}
+            <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">
+                {{ token_a.percentage | floatformat:2 | intcomma }}%
+            </div>
+        {% else %}
+            <div id="token-A-percentage" class="text-red-400 self-end text:lg sm:text-2xl">
+                {{ token_a.percentage | floatformat:2 | intcomma }}%
+            </div>  
+        {% endif %}
     </div>
 </div>
 

@@ -54,16 +54,16 @@
   token_A.addEventListener("input" , validate);
   token_B.addEventListener("input" , validate);
 
-
   // Add a delay before a function will run (does not backlog function calls)
   const debounce = (func, delay) => {
     let timer; // keep track of current timer
   
     return (...args) => {
       clearTimeout(timer);
+      // start the timer
       timer = setTimeout(() => {
         func(...args);
-      }, delay); // start the timer
+      }, delay); 
     };
   };
 
@@ -76,7 +76,7 @@
   }
 
   // As user inputs text, query the backend and receive data from api call
-  // NOTE - May need to enable CORS in Django when this is deployed on Railway
+  // TODO - May need to enable CORS in Django when this is deployed on Railway
   async function sendRequestForTokens(token_id, token_query) {
     let response = await fetch('', {
       method: 'POST',
@@ -94,14 +94,12 @@
 
   // Wait for user to input >=2 characters, then run the
   // backend request
-  // TODO - Do something with this data (add to dropdown list
-  // 		- Should this be document body or even more specific?
+  // TODO - Do something with this data (add to dropdown list?)
   // TODO - Is 250 ms a good delay for the input?
 
   document.body.addEventListener("keyup", debounce(ev => {
     if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
-      sendRequestForTokens(ev.target.id, ev.target.value)
-        .then(data => console.log(data));
+      sendRequestForTokens(ev.target.id, ev.target.value);
     }
   }, 250));
 
