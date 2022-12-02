@@ -135,6 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TODO - Setup CSRF_COOKIE_SECURE and SESSION_COOKIE_SECURE. This is for https
 
+# TODO - Disable before deploying
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
