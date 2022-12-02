@@ -23,9 +23,27 @@ class InitialPageView(FormView):
         # will return data using JsonResponse
         if request.accepts('application/json'):
             json_data = json.load(request)
-            data_from_post = json_data['token_query']
+            token_query = json_data['token_query'].lower()
             input_name = json_data['token_id']
-            first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", data_from_post, "query")
+            first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", token_query, "query")
+
+            tokens_data_cov = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
+            # Organize json data from covalent into a dictionary of name, symbol, and address
+            token_records = [
+                {
+                    'name': token['contract_name'],
+                    'symbol': token['contract_ticker_symbol'], 
+                    'address': token['contract_address']
+                } 
+                    for token in tokens_data_cov['data']['items']
+            ]
+
+            for token_data in token_records:
+                if token_query in token_data['name'].lower() or token_query in token_data['symbol'].lower():
+                    coin_info_by_addr = get_coingecko_data(f"https://api.coingecko.com/api/v3/coins/evmos/contract/{token_data['address']}")
+                    print(coin_info_by_addr['id'], "- from CoinGecko")
+                    print(token_data['name'], "- from Covalent")
+
             # Django prefers the data given to the frontend is a dictionary
             try:
                 token_id = {'token_data': first_api_call["coins"][0]["id"]}
@@ -36,7 +54,6 @@ class InitialPageView(FormView):
             token_list = {'token_list' : first_api_call["coins"]}
             return JsonResponse(token_list)
         else:
-            # TODO - Check if redirect works (first add form to template file)
             return redirect('transform')
 
 class TransformPageView(TemplateView):

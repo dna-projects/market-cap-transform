@@ -4,14 +4,14 @@
 
 <div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
-    {% include "components/add-token.html" with default_text="TokenA" id="token-A" %}
+    {% comment %} {% include "components/add-token.html" with default_text="TokenA" id="token-A" %} {% endcomment %}
     <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
         <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
         <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full md:w-[10px] md:h-[10px]"></div>
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
-    {% include "components/add-token.html" with default_text="TokenB" id="token-B" %}
+    {% comment %} {% include "components/add-token.html" with default_text="TokenB" id="token-B" %} {% endcomment %}
 </div>
 
 <!-- Tranformed content -->
