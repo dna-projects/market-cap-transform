@@ -32,8 +32,8 @@
 .add-token-dropdown-A {
     display: none;
     z-index: 10;
-    margin-top: 175px; /*places the list below the input field */
-    margin-left: 6px;
+    margin-top: 30px; /*places the list below the input field */
+    margin-left: -98px;
     border:1px solid #0000;
     border-radius:4px;
     background:
@@ -45,8 +45,8 @@
 .add-token-dropdown-B {
     display: none;
     z-index: 10;
-    margin-top: 175px; /*places the list below the input field */
-    margin-left: 6px;
+    margin-top: 30px; /*places the list below the input field */
+    margin-left: -98px;
     border:1px solid #0000;
     border-radius:4px; 
     background:
