@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .bg-gradient {
     background: linear-gradient(180deg, #000000 43.46%, rgba(0, 0, 0, 0) 64.84%);
 }
@@ -37,8 +41,26 @@
     border-radius:4px;
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
-        linear-gradient(#2f36ff, #2f36ff) border-box;
+        linear-gradient(#2f36ff, #67e1f1) border-box;
     /* transition: height .5s; */
+}
+
+*::-webkit-scrollbar {
+    width: 0.7em;
+}
+*::-webkit-scrollbar-track {
+    background: none;
+}
+*::-webkit-scrollbar-thumb {
+    background: #2f36ff;
+    border-radius: 10px;
+}
+
+input:hover {
+    /* outline: 3px solid #67e1f1; */
+    background:
+        linear-gradient(180deg, rgb(2, 31, 58) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #67e1f1) border-box;
 }
 
 .add-token-dropdown-B {

@@ -13,7 +13,7 @@
             </div>
             <!-- reset svg -->
             <div class="col-start-3 flex justify-end">
-                <button class="h-4 w-4 mr-1 -mt-3">
+                <button class="h-4 w-4 mr-1 -mt-2 hover:opacity-60">
                     <a href="{% url 'initial' %}"><img src="{% static "svg/reset.svg" %}" alt="Reset Icon"></a>
                 </button>
             </div>
@@ -38,8 +38,10 @@
             </div>
             <!-- reset svg -->
             <div class="col-start-3 flex justify-end">
-                <button class="h-4 w-4 mr-1 -mt-3">
-                    <a href="{% url 'initial' %}"><img src="{% static "svg/reset.svg" %}" alt="Reset Icon"></a>
+                <button class="h-4 w-4 mr-1 -mt-2 hover:opacity-60">
+                    <a href="{% url 'initial' %}">
+                        <img src="{% static "svg/reset.svg" %}" alt="Reset Icon">
+                    </a>
                 </button>
             </div>
         </div>
@@ -51,7 +53,7 @@
 
 <!-- Tranformed content -->
 <div id="output" class="flex flex-col self-center">
-    <div class="sm:my-8">
+    <div class="sm:mt-14">
         <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-xl">
             {{ token_a.name | capfirst }} with the market cap of {{ token_b.name | capfirst }}
         </p>

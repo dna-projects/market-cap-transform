@@ -589,9 +589,9 @@ video {
   margin-bottom: 3rem;
 }
 
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .mx-3 {
@@ -602,6 +602,11 @@ video {
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .-ml-6 {
@@ -632,8 +637,8 @@ video {
   margin-right: 0.25rem;
 }
 
-.-mt-3 {
-  margin-top: -0.75rem;
+.-mt-2 {
+  margin-top: -0.5rem;
 }
 
 .mb-4 {
@@ -676,10 +681,6 @@ video {
   height: 8px;
 }
 
-.h-10 {
-  height: 2.5rem;
-}
-
 .h-4 {
   height: 1rem;
 }
@@ -716,8 +717,8 @@ video {
   width: 8px;
 }
 
-.w-10 {
-  width: 2.5rem;
+.w-12 {
+  width: 3rem;
 }
 
 .w-5 {
@@ -726,6 +727,10 @@ video {
 
 .w-4 {
   width: 1rem;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .origin-top-right {
@@ -766,6 +771,10 @@ video {
 
 .justify-around {
   justify-content: space-around;
+}
+
+.gap-4 {
+  gap: 1rem;
 }
 
 .gap-2 {
@@ -830,11 +839,6 @@ video {
 .bg-\[\#00FFC2\] {
   --tw-bg-opacity: 1;
   background-color: rgb(0 255 194 / var(--tw-bg-opacity));
-}
-
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .py-4 {
@@ -939,6 +943,187 @@ video {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
+.bg-gradient {
+  background: linear-gradient(180deg, #000000 43.46%, rgba(0, 0, 0, 0) 64.84%);
+}
+
+/* Solid border color */
+
+.main-content {
+  border:1px solid rgba(103, 225, 241, .75);
+  border-radius:12px;
+  background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 36, 70, 0.5) 100%);
+}
+
+.box-shadow-main {
+  box-shadow: 0px 80px 100px -30px rgba(31, 203, 255, .5);
+}
+
+/* Gradient border and gradient background */
+
+/* .main-content {
+    border:1px solid #0000;
+    border-radius:12px;
+    opacity: 0.5;
+    background:
+        linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #67e1f1) border-box;
+} */
+
+/* .box-shadow-main {
+    box-shadow: 0px 100px 110px -40px rgb(31, 203, 255);
+} */
+
+/* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
+
+.add-token-dropdown-A {
+  display: none;
+  z-index: 10;
+  margin-top: 30px;
+  /*places the list below the input field */
+  margin-left: -98px;
+  border:1px solid #0000;
+  border-radius:4px;
+  background:
+        linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #67e1f1) border-box;
+  /* transition: height .5s; */
+}
+
+*::-webkit-scrollbar {
+  width: 0.7em;
+}
+
+*::-webkit-scrollbar-track {
+  background: none;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #2f36ff;
+  border-radius: 10px;
+}
+
+input:hover {
+  /* outline: 3px solid #67e1f1; */
+  background:
+        linear-gradient(180deg, rgb(2, 31, 58) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #67e1f1) border-box;
+}
+
+.add-token-dropdown-B {
+  display: none;
+  z-index: 10;
+  margin-top: 30px;
+  /*places the list below the input field */
+  margin-left: -98px;
+  border:1px solid #0000;
+  border-radius:4px;
+  background:
+        linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #2f36ff) border-box;
+}
+
+/* Size of each drop down when triggered after two characters */
+
+.dropdown {
+  display: block;
+  height: 120px;
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-top: 5px;
+  overflow-y: scroll;
+}
+
+/* Individual list items */
+
+li {
+  margin-top: 2px;
+  transition: 0.2s;
+}
+
+li:hover {
+  background-color: #23499A;
+  border-radius: 5px;
+  padding-left: 4px;
+  font-size: large;
+}
+
+/* Token A and Token B input fields */
+
+.token-input  {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 10;
+  outline: none;
+  height: 42px;
+  width: 145px;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  border:1px solid #0000;
+  border-radius:12px;
+  background:
+        linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #67e1f1) border-box;
+}
+
+@media only screen and (min-width: 768px) {
+  .token-input {
+    width: 200px;
+  }
+}
+
+/* Add token input gradient */
+
+.add-token {
+  border:1px solid #0000;
+  border-radius:12px;
+  background:
+        linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #67e1f1) border-box;
+}
+
+/* Add token input box shadow */
+
+.box-shadow-add-token {
+  box-shadow: 0px 4px 36px -10px rgb(0, 155, 255);
+  /* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
+}
+
+/* Circle icon shadow */
+
+.red-shadow {
+  box-shadow: 0px 0px 15px 12px rgb(255, 82, 44, 0.40);
+}
+
+.blue-shadow {
+  box-shadow: 0px 0px 15px 10px rgb(31, 203, 255, 0.30);
+}
+
+.green-shadow {
+  box-shadow: 0px 0px 15px 12px rgb(44, 138, 116, 0.40);
+}
+
+/* Fonts */
+
+.font-mavenpro {
+  font-family: "Maven Pro", sans-serif;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
+#logo {
+  width: 60px;
+  height: 60px;
+}
+
+#logo:hover {
+  transform: rotate(0);
+}
+
 .hover\:bg-blue-100\/20:hover {
   background-color: rgb(219 234 254 / 0.2);
 }
@@ -948,14 +1133,13 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.hover\:opacity-60:hover {
+  opacity: 0.6;
+}
+
 @media (min-width: 640px) {
   .sm\:col-start-1 {
     grid-column-start: 1;
-  }
-
-  .sm\:my-8 {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
   }
 
   .sm\:ml-2 {
@@ -966,6 +1150,14 @@ video {
     margin-right: 0.5rem;
   }
 
+  .sm\:mt-24 {
+    margin-top: 6rem;
+  }
+
+  .sm\:mt-14 {
+    margin-top: 3.5rem;
+  }
+
   .sm\:mt-16 {
     margin-top: 4rem;
   }
@@ -974,8 +1166,8 @@ video {
     display: flex;
   }
 
-  .sm\:h-\[500px\] {
-    height: 500px;
+  .sm\:h-\[550px\] {
+    height: 550px;
   }
 
   .sm\:flex-row {
