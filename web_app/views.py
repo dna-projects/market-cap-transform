@@ -23,14 +23,14 @@ class InitialPageView(FormView):
             first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", token_query, "query")
 
             tokens_data_cov = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
-            
+
             # Organize json data from covalent into a dictionary of name, symbol, and address
             token_records = [
                 {
                     'name': token['contract_name'],
-                    'symbol': token['contract_ticker_symbol'], 
+                    'symbol': token['contract_ticker_symbol'],
                     'address': token['contract_address']
-                } 
+                }
                     for token in tokens_data_cov['data']['items']
             ]
 
@@ -59,6 +59,7 @@ class TransformPageView(TemplateView):
     class Token:
         name: str
         img: str = None
+        symbol: str = None
         price: float = None
         transform_price: float = None
         percentage: float = None
@@ -85,19 +86,22 @@ class TransformPageView(TemplateView):
             token_a_info = {
                 'price': second_api_call_token_a[0]["current_price"] , 
                 'market_cap': second_api_call_token_a[0]["market_cap"],
-                'img_url': second_api_call_token_a[0]["image"]
+                'img_url': second_api_call_token_a[0]["image"],
+                'symbol': second_api_call_token_a[0]["symbol"]
             }
             second_api_call_token_b = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_b_id["token_data"], "ids")
             token_b_info = {
                 'price': second_api_call_token_b[0]["current_price"] , 
                 'market_cap': second_api_call_token_b[0]["market_cap"],
-                'img_url': second_api_call_token_a[0]["image"]
+                'img_url': second_api_call_token_b[0]["image"],
+                'symbol': second_api_call_token_b[0]["symbol"]
             }
 
             # Setup each token
             token_a = self.Token(
                 token_a_id["token_data"], 
                 token_a_info["img_url"], 
+                token_a_info["symbol"], 
                 token_a_info["price"],
                 token_b_info["market_cap"] / token_a_info["market_cap"] * token_a_info["price"], 
                 self.calculate_percentage(token_a_info["market_cap"], token_b_info["market_cap"])
@@ -106,6 +110,7 @@ class TransformPageView(TemplateView):
             token_b = self.Token(
                 token_b_id["token_data"], 
                 token_b_info["img_url"], 
+                token_b_info["symbol"], 
                 token_b_info["price"], 
                 percentage=297
             )

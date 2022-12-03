@@ -2,17 +2,34 @@
 {% load humanize %}
 {% block content %}
 
-<div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
+<div id="input" class="flex flex-col w-full text-white mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
-    {% comment %} {% include "components/add-token.html" with default_text="TokenA" id="token-A" %} {% endcomment %}
+    <div class="add-token box-shadow-add-token flex flex-col justify-around self-center relative p-1 h-[110px] w-[175px] md:w-[240px]">
+        <div class="flex flex-row self-center mt-2">
+            <img class="w-5 rounded-full mx-1" src="{{ token_a.img }}" alt="Token A Logo"> <!--placeholder for token icon--> 
+            <div class="text-sm mx-1">{{ token_a.symbol | upper }}</div>
+        </div>
+        <div class="flex flex-row justify-center mb-4">
+            <div class="self-end text-2xl mx-2">{{ token_a.name | capfirst }}</div>
+            <div class="self-center text-xs mx-2 pt-2">${{ token_a.price | floatformat:2 | intcomma }}</div>
+        </div>
+    </div>
     <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
         <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
         <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full md:w-[10px] md:h-[10px]"></div>
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
-    {% comment %} {% include "components/add-token.html" with default_text="TokenB" id="token-B" %} {% endcomment %}
-</div>
+    <div class="add-token box-shadow-add-token flex flex-col justify-around self-center relative p-1 h-[110px] w-[175px] md:w-[240px]">
+        <div class="flex flex-row self-center mt-2">
+            <img class="w-5 rounded-full mx-1" src="{{ token_b.img }}" alt="Token B Logo"> <!--placeholder for token icon--> 
+            <div class="text-sm mx-1">{{ token_b.symbol | upper }}</div>
+        </div>
+        <div class="flex flex-row justify-center mb-4">
+            <div class="self-end text-2xl mx-2">{{ token_b.name | capfirst }}</div>
+            <div class="self-center text-xs mx-2 pt-2">${{ token_b.price | floatformat:2 | intcomma }}</div>
+        </div>
+    </div></div>
 
 <!-- Tranformed content -->
 <div id="output" class="flex flex-col self-center">
@@ -36,7 +53,7 @@
         {% else %}
             <div id="token-A-percentage" class="text-red-400 self-end text:lg sm:text-2xl">
                 {{ token_a.percentage | floatformat:2 | intcomma }}%
-            </div>  
+            </div>
         {% endif %}
     </div>
 </div>
