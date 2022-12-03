@@ -35,10 +35,10 @@
     margin-top: 175px; /*places the list below the input field */
     margin-left: 6px;
     border:1px solid #0000;
-    border-radius:12px;
+    border-radius:4px;
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
-        linear-gradient(#2f36ff, #67e1f1) border-box;
+        linear-gradient(#2f36ff, #2f36ff) border-box;
     /* transition: height .5s; */
 }
 
@@ -48,10 +48,10 @@
     margin-top: 175px; /*places the list below the input field */
     margin-left: 6px;
     border:1px solid #0000;
-    border-radius:12px;
+    border-radius:4px; 
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
-        linear-gradient(#2f36ff, #67e1f1) border-box;
+        linear-gradient(#2f36ff, #2f36ff) border-box;
 }
 
 /* Size of each drop down */
