@@ -10,7 +10,7 @@ def get_covalent_data(token_id, endpoint):
 
     # Attempt to get data and handle errors along the way
     try:
-        response = requests.get(complete_url, params=parameters, timeout=10)
+        response = requests.get(complete_url, params=parameters, timeout=15)
         response.raise_for_status()
 
         return response.json()
@@ -30,7 +30,7 @@ def get_coingecko_data(url, search_key=None, input_parameters=None):
 
     # Attempt to get data and handle errors along the way
     try:
-        response = requests.get(base_url, params=parameters, timeout=10)
+        response = requests.get(base_url, params=parameters, timeout=15)
         response.raise_for_status()
 
         return response.json()
