@@ -10,24 +10,20 @@ class InitialPageView(FormView):
     template_name = "initial.html"
     form_class = TokenForm
 
-    #     # UNCOMMENT TO make covalent API request 
-    #     # NOTE - Must add COVALENT_API_KEY='...api key...' to .env file
-
-    #     # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
-    #     # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
-    #     # print(token_list)
-
-
     def post(self, request):
+        # Redirect when form is submitted
+        if request.accepts('text/html'):
+            return redirect('transform')
         # When the JS from the frontend makes a post request, Django
         # will return data using JsonResponse
-        if request.accepts('application/json'):
+        elif request.accepts('application/json'):
             json_data = json.load(request)
             token_query = json_data['token_query'].lower()
             input_name = json_data['token_id']
             first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", token_query, "query")
 
             tokens_data_cov = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
+            
             # Organize json data from covalent into a dictionary of name, symbol, and address
             token_records = [
                 {
@@ -54,8 +50,6 @@ class InitialPageView(FormView):
             request.session[input_name] = token_id
             token_list = {'token_list' : first_api_call["coins"]}
             return JsonResponse(token_list)
-        else:
-            return redirect('transform')
 
 class TransformPageView(TemplateView):
     template_name = "transform.html"

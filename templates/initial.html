@@ -5,7 +5,7 @@
 
 <div id="input">
   <!-- Action prevents user from pressing enter -->
-  <form action="javascript:void(0)" method="post" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16" autocomplete="off">
+  <form id="tokens-form" method="post" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16" autocomplete="off">
     {% csrf_token %}
     <!-- token A -->
     <div class="add-token box-shadow-add-token flex flex-col justify-center self-center relative h-[110px] w-[175px] md:w-[240px]">
@@ -29,6 +29,8 @@
         </ul>
       </div>
     </div>
+    <!-- NOTE - Just for testing purposes-->
+    <button type="submit" class="text-white">PRESS TO SUBMIT</button>
   </form>
 </div>
 
@@ -140,6 +142,8 @@ const list_B = getEl(".add-token-dropdown-B")
       list_B.classList.remove('dropdown');
     }
 })
+
+// Redirect to transform page once form is valid (both tokens have been entered)
 </script>
 
 {% endblock content %}
