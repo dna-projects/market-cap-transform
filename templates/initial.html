@@ -115,8 +115,16 @@
   document.body.addEventListener("keyup", debounce(ev => {
     if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
       // Fix .then so that it matches to either token A or B.
-      sendRequestForTokens(ev.target.id, ev.target.value).then(data => updateList(".add-token-dropdown-A", data));
+      sendRequestForTokens(ev.target.id, ev.target.value).then(data => {
+        updateList(".add-token-dropdown-A", data);
+      });
     }
+
+    if (token_A.value.length >= 2 && token_B.value.length >= 2) {
+      // Redirect to transform page once form is valid (both tokens have been entered)
+      getEl('#tokens-form').submit();
+    }
+
   }, 250));
 
 // Drop down toggle
@@ -140,7 +148,6 @@ const list_B = getEl(".add-token-dropdown-B")
     }
 })
 
-// Redirect to transform page once form is valid (both tokens have been entered)
 </script>
 
 {% endblock content %}
