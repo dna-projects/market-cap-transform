@@ -28,16 +28,18 @@
                 <!-- Nav bar start -->
                 <div class="grid grid-cols-3 py-4">
                     <div class="flex justify-center col-start-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
-                        <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
-                        <div class="font-inter flex self-center text-xl tracking-widest -ml-6">futurecap</div>
+                        <a href="{% url 'initial' %}" class="flex flex-row">
+                            <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
+                            <div class="font-inter flex self-center text-xl tracking-widest -ml-6">futurecap</div>
+                        </a>
                     </div>
                     <button class="rounded-full col-start-3 justify-self-end mr-10 sm:mr-2" type="button" onclick="informationDropdown()">
                         <img id="information-icon" src="{% static "svg/information-icon.svg" %}" alt="Information Icon">
                     </button>
                     <!-- Information dropdown -->
-                    <div id="dropdownMenu" class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-[#230679]/70 border border-[#6F7CF1]/40 rounded-lg shadow-lg ring-1">
+                    <!-- <div id="dropdownMenu" class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-[#230679]/70 border border-[#6F7CF1]/40 rounded-lg shadow-lg ring-1">
                         <div class="text-[#FFFDC9] fontMavenpro block rounded-t-lg px-4 py-2 text-md hover:bg-blue-100/20 hover:text-white">Project description</div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Nav bar end -->
 

@@ -31,35 +31,75 @@
 
 .add-token-dropdown-A {
     display: none;
-    top: 0;
-    left: 0;
-    margin: 0px;
-    padding: 0px;
+    z-index: 10;
+    margin-top: 30px; /*places the list below the input field */
+    margin-left: -98px;
     border:1px solid #0000;
-    border-radius:12px;
+    border-radius:4px;
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
-        linear-gradient(#2f36ff, #67e1f1) border-box;
+        linear-gradient(#2f36ff, #2f36ff) border-box;
     /* transition: height .5s; */
 }
 
 .add-token-dropdown-B {
     display: none;
-    top: 0;
-    left: 0;
-    margin: 0px;
-    padding: 0px;
+    z-index: 10;
+    margin-top: 30px; /*places the list below the input field */
+    margin-left: -98px;
+    border:1px solid #0000;
+    border-radius:4px; 
+    background:
+        linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
+        linear-gradient(#2f36ff, #2f36ff) border-box;
+}
+
+/* Size of each drop down when triggered after two characters */
+.dropdown {
+    display: block;
+    height: 120px;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-top: 5px;
+    overflow-y: scroll;
+}
+
+/* Individual list items */
+li {
+    margin-top: 2px;
+    transition: 0.2s;
+}
+
+li:hover {
+    background-color: #23499A;
+    border-radius: 5px;
+    padding-left: 4px;
+    font-size: large;
+}
+
+/* Token A and Token B input fields */
+.token-input  {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    outline: none;
+    height: 42px;
+    width: 145px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
     border:1px solid #0000;
     border-radius:12px;
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
         linear-gradient(#2f36ff, #67e1f1) border-box;
-    /* transition: height .2s; */
 }
 
-.dropdown {
-    display: block;
-    height: 150px;
+@media only screen and (min-width: 768px) {
+    .token-input {
+        width: 200px;
+    }
 }
 
 /* Add token input gradient */
@@ -75,26 +115,6 @@
 .box-shadow-add-token {
     box-shadow: 0px 4px 36px -10px rgb(0, 155, 255);
     /* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
-}
-
-/* Token A and Token B input fields */
-
-.token-input  {
-    display: flex;
-    align-items: center;
-    width: 140px;
-    height: 42px;
-    outline: none;
-    background: transparent;
-    color: white;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-@media only screen and (min-width: 768px) {
-    .token-input {
-        width: 195px;
-    }
 }
 
 /* Circle icon shadow */

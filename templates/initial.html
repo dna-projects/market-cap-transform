@@ -5,15 +5,14 @@
 
 <div id="input">
   <!-- Action prevents user from pressing enter -->
-  <form action="javascript:void(0)" method="post" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
+  <form id="tokens-form" method="post" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16" autocomplete="off">
     {% csrf_token %}
     <!-- token A -->
-    <div class="add-token box-shadow-add-token flex flex-col justify-center self-center relative h-[110px] w-[175px] md:w-[240px]">
-      <div class="add-token self-center relative h-[45px] w-[145px] md:w-5/6">
-        {{ form.token_input_A }}
-        <ul class="add-token-dropdown-A border absolute flex-col w-[145px] text-white p-2 md:w-full">
-        </ul>
-      </div>
+    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center relative h-[110px] w-[175px] md:w-[240px]">
+      {{ form.token_input_A }}
+      <button>
+        <ul class="add-token-dropdown-A border flex-col text-start absolute w-[145px] text-white md:w-[200px]"></ul>
+      </button>
     </div>
     <!-- connecting circles -->
     <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
@@ -22,13 +21,13 @@
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
-    <div class="add-token box-shadow-add-token flex flex-col justify-center self-center relative h-[110px] w-[175px] md:w-[240px]">
-      <div class="add-token self-center relative h-[45px] w-[145px] md:w-5/6">
-        {{ form.token_input_B }}
-        <ul class="add-token-dropdown-B border absolute flex-col w-[145px] text-white p-2 md:w-full">
-        </ul>
-      </div>
-    </div>
+    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center relative h-[110px] w-[175px] md:w-[240px]">
+      {{ form.token_input_B }}
+      <button>
+        <ul class="add-token-dropdown-B border flex-col text-start absolute w-[145px] text-white md:w-[200px]"></ul>
+      </button>    </div>
+    <!-- NOTE - Just for testing purposes-->
+    <!-- <button type="submit" class="text-white">PRESS TO SUBMIT</button> -->
   </form>
 </div>
 
@@ -140,6 +139,8 @@ const list_B = getEl(".add-token-dropdown-B")
       list_B.classList.remove('dropdown');
     }
 })
+
+// Redirect to transform page once form is valid (both tokens have been entered)
 </script>
 
 {% endblock content %}

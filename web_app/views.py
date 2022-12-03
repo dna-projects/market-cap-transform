@@ -10,22 +10,37 @@ class InitialPageView(FormView):
     template_name = "initial.html"
     form_class = TokenForm
 
-    #     # UNCOMMENT TO make covalent API request 
-    #     # NOTE - Must add COVALENT_API_KEY='...api key...' to .env file
-
-    #     # tokens_data = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
-    #     # token_list = [token['contract_ticker_symbol'] for token in tokens_data['data']['items']]
-    #     # print(token_list)
-
-
     def post(self, request):
+        # Redirect when form is submitted
+        if request.accepts('text/html'):
+            return redirect('transform')
         # When the JS from the frontend makes a post request, Django
         # will return data using JsonResponse
-        if request.accepts('application/json'):
+        elif request.accepts('application/json'):
             json_data = json.load(request)
-            data_from_post = json_data['token_query']
+            token_query = json_data['token_query'].lower()
             input_name = json_data['token_id']
-            first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", data_from_post, "query")
+            first_api_call = get_coingecko_data("https://api.coingecko.com/api/v3/search?", token_query, "query")
+
+            tokens_data_cov = get_covalent_data('9001', 'xy=k/diffusion/tokens/')
+
+            # Organize json data from covalent into a dictionary of name, symbol, and address
+            token_records = [
+                {
+                    'name': token['contract_name'],
+                    'symbol': token['contract_ticker_symbol'],
+                    'address': token['contract_address']
+                }
+                    for token in tokens_data_cov['data']['items']
+            ]
+
+            for token_data in token_records:
+                if token_query in token_data['name'].lower() or token_query in token_data['symbol'].lower():
+                    coin_info_by_addr = get_coingecko_data(f"https://api.coingecko.com/api/v3/coins/evmos/contract/{token_data['address']}")
+                    if coin_info_by_addr:
+                        print(coin_info_by_addr['id'], "- from CoinGecko")
+                    print(token_data['name'], "- from Covalent")
+
             # Django prefers the data given to the frontend is a dictionary
             try:
                 token_id = {'token_data': first_api_call["coins"][0]["id"]}
@@ -35,9 +50,6 @@ class InitialPageView(FormView):
             request.session[input_name] = token_id
             token_list = {'token_list' : first_api_call["coins"]}
             return JsonResponse(token_list)
-        else:
-            # TODO - Check if redirect works (first add form to template file)
-            return redirect('transform')
 
 class TransformPageView(TemplateView):
     template_name = "transform.html"
@@ -47,6 +59,7 @@ class TransformPageView(TemplateView):
     class Token:
         name: str
         img: str = None
+        symbol: str = None
         price: float = None
         transform_price: float = None
         percentage: float = None
@@ -73,19 +86,22 @@ class TransformPageView(TemplateView):
             token_a_info = {
                 'price': second_api_call_token_a[0]["current_price"] , 
                 'market_cap': second_api_call_token_a[0]["market_cap"],
-                'img_url': second_api_call_token_a[0]["image"]
+                'img_url': second_api_call_token_a[0]["image"],
+                'symbol': second_api_call_token_a[0]["symbol"]
             }
             second_api_call_token_b = get_coingecko_data("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false", token_b_id["token_data"], "ids")
             token_b_info = {
                 'price': second_api_call_token_b[0]["current_price"] , 
                 'market_cap': second_api_call_token_b[0]["market_cap"],
-                'img_url': second_api_call_token_a[0]["image"]
+                'img_url': second_api_call_token_b[0]["image"],
+                'symbol': second_api_call_token_b[0]["symbol"]
             }
 
             # Setup each token
             token_a = self.Token(
                 token_a_id["token_data"], 
                 token_a_info["img_url"], 
+                token_a_info["symbol"], 
                 token_a_info["price"],
                 token_b_info["market_cap"] / token_a_info["market_cap"] * token_a_info["price"], 
                 self.calculate_percentage(token_a_info["market_cap"], token_b_info["market_cap"])
@@ -94,6 +110,7 @@ class TransformPageView(TemplateView):
             token_b = self.Token(
                 token_b_id["token_data"], 
                 token_b_info["img_url"], 
+                token_b_info["symbol"], 
                 token_b_info["price"], 
                 percentage=297
             )
