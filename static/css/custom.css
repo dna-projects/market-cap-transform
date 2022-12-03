@@ -31,7 +31,6 @@
 
 .add-token-dropdown-A {
     display: none;
-    z-index: -1;
     top: 0;
     left: 0;
     margin: 0px;
@@ -46,7 +45,6 @@
 
 .add-token-dropdown-B {
     display: none;
-    z-index: -1;
     top: 0;
     left: 0;
     margin: 0px;
@@ -61,12 +59,16 @@
 
 .dropdown {
     display: block;
-    height: 150px;
-    padding-top: 28px;
+    height: 130px;
+    padding-top: 30px;
     padding-left: 9px;
-    overflow: scroll;
-    scrollbar-color: dark;
+    overflow-y: scroll;
 }
+
+.dropdown:hover {
+    background-color: yellow;
+}
+
 
 /* Add token input gradient */
 .add-token {
@@ -88,13 +90,14 @@
 .token-input  {
     display: flex;
     align-items: center;
-    width: 140px;
     height: 42px;
     outline: none;
     background: transparent;
     color: white;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 24px;
+    position: absolute;
+    z-index: 10;
 }
 
 @media only screen and (min-width: 768px) {

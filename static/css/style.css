@@ -792,14 +792,6 @@ video {
   justify-self: end;
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
-.overflow-scroll {
-  overflow: scroll;
-}
-
 .rounded-full {
   border-radius: 9999px;
 }
