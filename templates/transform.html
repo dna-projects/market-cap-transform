@@ -13,14 +13,14 @@
             </div>
             <!-- reset svg -->
             <div class="col-start-3 flex justify-end">
-                <button class="h-4 w-4 mr-1 -mt-2 hover:opacity-60">
+                <button class="h-4 w-4 mr-1 -mt-2 md:mt-0 hover:opacity-60">
                     <a href="{% url 'initial' %}"><img src="{% static "svg/reset.svg" %}" alt="Reset Icon"></a>
                 </button>
             </div>
         </div>
-        <div class="flex flex-row justify-center mb-4">
-            <div class="self-end text-lg mx-2 md:text-2xl">{{ token_a.name | capfirst }}</div>
-            <div class="self-center text-xs mx-2 pt-2">${{ token_a.price | floatformat:2 | intcomma }}</div>
+        <div class="flex flex-row md:flex-col md:items-center mb-4">
+            <div class="text-lg mx-2 md:text-3xl">{{ token_a.name | capfirst }}</div>
+            <div class="text-xs md:text-base mx-2 pt-2">${{ token_a.price | floatformat:2 | intcomma }}</div>
         </div>
     </div>
     <!-- connecting circles -->
@@ -38,16 +38,16 @@
             </div>
             <!-- reset svg -->
             <div class="col-start-3 flex justify-end">
-                <button class="h-4 w-4 mr-1 -mt-2 hover:opacity-60">
+                <button class="h-4 w-4 mr-1 -mt-2 md:mt-0 hover:opacity-60">
                     <a href="{% url 'initial' %}">
                         <img src="{% static "svg/reset.svg" %}" alt="Reset Icon">
                     </a>
                 </button>
             </div>
         </div>
-        <div class="flex flex-row justify-center mb-4">
-            <div class="self-end text-lg mx-2 md:text-2xl">{{ token_b.name | capfirst }}</div>
-            <div class="self-center text-xs mx-2 pt-2">${{ token_b.price | floatformat:2 | intcomma }}</div>
+        <div class="flex flex-row md:flex-col md:items-center mb-4">
+            <div class="text-lg mx-2 md:text-3xl">{{ token_b.name | capfirst }}</div>
+            <div class="text-xs md:text-base mx-2 pt-2">${{ token_b.price | floatformat:2 | intcomma }}</div>
         </div>
     </div></div>
 
@@ -55,7 +55,7 @@
 <div id="output" class="flex flex-col self-center">
     <div class="sm:mt-14">
         <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-xl">
-            {{ token_a.name | capfirst }} with the market cap of {{ token_b.name | capfirst }}
+            {{ token_a.name | capfirst }} with the marketcap of {{ token_b.name | capfirst }}
         </p>
     </div>
     <!-- Token A with new market cap value -->

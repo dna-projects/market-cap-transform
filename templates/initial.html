@@ -8,7 +8,7 @@
   <form id="tokens-form" method="post" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-24" autocomplete="off">
     {% csrf_token %}
     <!-- token A -->
-    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center relative h-[110px] w-[175px] md:w-[240px]">
+    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
       {{ form.token_input_A }}
       <button>
         <ul class="add-token-dropdown-A border flex-col text-start absolute w-[145px] text-white md:w-[200px]"></ul>
@@ -21,7 +21,7 @@
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
-    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center relative h-[110px] w-[175px] md:w-[240px]">
+    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
       {{ form.token_input_B }}
       <button>
         <ul class="add-token-dropdown-B border flex-col text-start absolute w-[145px] text-white md:w-[200px]"></ul>
