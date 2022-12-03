@@ -668,10 +668,6 @@ video {
   height: 110px;
 }
 
-.h-\[45px\] {
-  height: 45px;
-}
-
 .h-\[6px\] {
   height: 6px;
 }
@@ -750,6 +746,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
 }
 
 .justify-end {
@@ -1024,12 +1024,8 @@ video {
     width: 240px;
   }
 
-  .md\:w-5\/6 {
-    width: 83.333333%;
-  }
-
-  .md\:w-full {
-    width: 100%;
+  .md\:w-\[200px\] {
+    width: 200px;
   }
 
   .md\:w-\[8px\] {
