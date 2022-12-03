@@ -28,8 +28,10 @@
                 <!-- Nav bar start -->
                 <div class="grid grid-cols-3 py-4">
                     <div class="flex justify-center col-start-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
-                        <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
-                        <div class="font-inter flex self-center text-xl tracking-widest -ml-6">futurecap</div>
+                        <a href="{% url 'initial' %}" class="flex flex-row">
+                            <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
+                            <div class="font-inter flex self-center text-xl tracking-widest -ml-6">futurecap</div>
+                        </a>
                     </div>
                     <button class="rounded-full col-start-3 justify-self-end mr-10 sm:mr-2" type="button" onclick="informationDropdown()">
                         <img id="information-icon" src="{% static "svg/information-icon.svg" %}" alt="Information Icon">
