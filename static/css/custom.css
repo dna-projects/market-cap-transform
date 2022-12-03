@@ -54,7 +54,7 @@
         linear-gradient(#2f36ff, #2f36ff) border-box;
 }
 
-/* Size of each drop down */
+/* Size of each drop down when triggered after two characters */
 .dropdown {
     display: block;
     height: 120px;
