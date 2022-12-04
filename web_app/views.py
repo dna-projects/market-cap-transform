@@ -11,9 +11,8 @@ class InitialPageView(FormView):
     form_class = TokenForm
 
     def get(self, request):
-        request.session.clear()
-        for item in request.session.keys():
-            print(item)
+        request.session["id_token_input_A"] = ''
+        request.session["id_token_input_B"] = ''
         return render(request, self.template_name, {'form': self.form_class})
 
     def post(self, request):
