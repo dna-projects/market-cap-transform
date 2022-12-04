@@ -35,8 +35,7 @@
 .add-token-dropdown-A {
     display: none;
     z-index: 10;
-    margin-top: 30px; /*places the list below the input field */
-    margin-left: -98px;
+    margin-top: 176px; /*places the list below the input field */
     border:1px solid #0000;
     border-radius:4px;
     background:
@@ -66,13 +65,13 @@ input:hover {
 .add-token-dropdown-B {
     display: none;
     z-index: 10;
-    margin-top: 30px; /*places the list below the input field */
-    margin-left: -98px;
+    /* places the list below the input field */
+    margin-top: 176px; 
     border:1px solid #0000;
     border-radius:4px; 
     background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
-        linear-gradient(#2f36ff, #2f36ff) border-box;
+        linear-gradient(#2f36ff, #67e1f1) border-box;
 }
 
 /* Size of each drop down when triggered after two characters */
@@ -163,10 +162,14 @@ li:hover {
 }
 
 #logo {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
 }
 
 #logo:hover {
     transform: rotate(0);
+}
+
+#logo-text {
+    letter-spacing: 0.32rem;
 }

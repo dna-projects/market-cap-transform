@@ -10,9 +10,7 @@
     <!-- token A -->
     <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
       {{ form.token_input_A }}
-      <button>
-        <ul class="add-token-dropdown-A border flex-col text-start absolute w-[145px] text-white md:w-[200px]"></ul>
-      </button>
+      <ul class="add-token-dropdown-A border text-start absolute w-[145px] text-white md:w-[200px]"></ul>
     </div>
     <!-- connecting circles -->
     <div class="flex flex-col self-center gap-4 py-4 px-4 sm:flex justify-center sm:flex-row">
@@ -23,11 +21,8 @@
     <!-- token B -->
     <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
       {{ form.token_input_B }}
-      <button>
-        <ul class="add-token-dropdown-B border flex-col text-start absolute w-[145px] text-white md:w-[200px]"></ul>
-      </button>    </div>
-    <!-- NOTE - Just for testing purposes-->
-    <!-- <button type="submit" class="text-white">PRESS TO SUBMIT</button> -->
+      <ul class="add-token-dropdown-B absolute border text-start w-[145px] text-white md:w-[200px]"></ul>   
+    </div>
   </form>
 </div>
 
@@ -40,13 +35,13 @@
         <p class="text-white text-sm my-12 sm:text-lg">→ market cap B </p>
         <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full mx-4"></div>
     </div>
-    <!-- Token A to token B icons -->
+    <!-- Token A to Token B icons -->
     <div class="flex self-center gap-2">
         <img class="w-12 rounded-full" src="{% static 'images/evmos.webp' %}" alt="Example Evmos Logo">
         <div id="flow-arrow-icon" class="self-center mx-3">
             <img src="{% static "svg/flow-arrow.svg" %}" alt="Flow Arrows Icon">
         </div>
-        <img class="w-12 rounded-full" src="{% static 'images/eth.png' %}"alt="Example Eth Logo">
+        <img class="w-12 rounded-full -ml-1" src="{% static 'images/eth.png' %}"alt="Example Eth Logo">
     </div>
 </div>
 

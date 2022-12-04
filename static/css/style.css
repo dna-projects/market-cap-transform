@@ -633,6 +633,10 @@ video {
   margin-top: 2.5rem;
 }
 
+.-ml-1 {
+  margin-left: -0.25rem;
+}
+
 .mr-1 {
   margin-right: 0.25rem;
 }
@@ -773,10 +777,6 @@ video {
   justify-content: space-around;
 }
 
-.justify-items-center {
-  justify-items: center;
-}
-
 .gap-4 {
   gap: 1rem;
 }
@@ -882,9 +882,9 @@ video {
   text-align: start;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-sm {
@@ -905,10 +905,6 @@ video {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.tracking-widest {
-  letter-spacing: 0.1em;
 }
 
 .text-white {
@@ -983,9 +979,8 @@ video {
 .add-token-dropdown-A {
   display: none;
   z-index: 10;
-  margin-top: 30px;
+  margin-top: 176px;
   /*places the list below the input field */
-  margin-left: -98px;
   border:1px solid #0000;
   border-radius:4px;
   background:
@@ -1017,14 +1012,13 @@ input:hover {
 .add-token-dropdown-B {
   display: none;
   z-index: 10;
-  margin-top: 30px;
-  /*places the list below the input field */
-  margin-left: -98px;
+  /* places the list below the input field */
+  margin-top: 176px;
   border:1px solid #0000;
   border-radius:4px;
   background:
         linear-gradient(180deg, rgb(0, 0, 0) 100%, rgba(0, 36, 70, 0.976) 100%) padding-box,
-        linear-gradient(#2f36ff, #2f36ff) border-box;
+        linear-gradient(#2f36ff, #67e1f1) border-box;
 }
 
 /* Size of each drop down when triggered after two characters */
@@ -1120,21 +1114,20 @@ li:hover {
 }
 
 #logo {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
 }
 
 #logo:hover {
   transform: rotate(0);
 }
 
-.hover\:bg-blue-100\/20:hover {
-  background-color: rgb(219 234 254 / 0.2);
+#logo-text {
+  letter-spacing: 0.32rem;
 }
 
-.hover\:bg-slate-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+.hover\:bg-blue-100\/20:hover {
+  background-color: rgb(219 234 254 / 0.2);
 }
 
 .hover\:text-white:hover {
@@ -1187,6 +1180,11 @@ li:hover {
     justify-self: start;
   }
 
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
   .sm\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
@@ -1205,11 +1203,6 @@ li:hover {
   .sm\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
-  }
-
-  .sm\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
   }
 }
 
@@ -1254,19 +1247,9 @@ li:hover {
     align-items: center;
   }
 
-  .md\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
-  }
-
-  .md\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .md\:text-base {
