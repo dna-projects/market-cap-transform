@@ -3,35 +3,207 @@
 {% block content %}
 {% load static %}
 
-<div id="input" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
+<div id="input">
+  <!-- Action prevents user from pressing enter -->
+  <form id="tokens-form" method="post" class="flex flex-col w-full mt-10 sm:flex justify-center sm:flex-row sm:mt-24" autocomplete="off">
+    {% csrf_token %}
     <!-- token A -->
-    {% include "components/add-token.html" with default_text="A..." id="token-A" %}
-    <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
-        <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full"></div>
-        <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full"></div>
-        <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full"></div>
+    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
+      {{ form.token_input_A }}
+      {{ form.token_input_A_data }}
+      <ul class="add-token-dropdown-A border text-start absolute w-[145px] text-white md:w-[200px]"></ul>
+    </div>
+    <!-- connecting circles -->
+    <div id="connection" class="flex flex-col self-center gap-4 py-4 px-4 sm:flex justify-center sm:flex-row">
+        <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
+        <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full md:w-[10px] md:h-[10px]"></div>
+        <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
-    {% include "components/add-token.html" with default_text="B..." id="token-B" %}
+    <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
+      {{ form.token_input_B }}
+      {{ form.token_input_B_data }}
+      <ul class="add-token-dropdown-B absolute border text-start w-[145px] text-white md:w-[200px]"></ul>   
+    </div>
+  </form>
 </div>
 
 <!-- Initial content -->
 <div id="output" class="flex flex-col self-center">
     <!-- Transform market cap text -->
-    <div id="market-cap-text" class="flex flex-row sm:my-8">
+    <div id="market-cap-text" class="flex flex-row sm:mt-14">
         <p class="text-white text-sm my-12 sm:text-lg">Transform market cap A</p>
-        <div class="self-center bg-[#FF4B32] w-[6px] h-[6px] rounded-full mx-2"></div>
-        <p class="text-white text-sm my-12 sm:text-lg">→ market cap B</p>
-        <div class="self-center bg-[#00FFC2] w-[6px] h-[6px] rounded-full mx-2"></div>
+        <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full mx-4"></div>
+        <p class="text-white text-sm my-12 sm:text-lg">→ market cap B </p>
+        <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full mx-4"></div>
     </div>
-    <!-- Token A to token B icons -->
+    <!-- Token A to Token B icons -->
     <div class="flex self-center gap-2">
-        <div id="token-A-image" class="bg-[#FF4B32] w-10 h-10 rounded-full"></div> <!--placeholder for token A icon-->
+        <img class="w-12 rounded-full" src="{% static 'images/evmos.webp' %}" alt="Example Evmos Logo">
         <div id="flow-arrow-icon" class="self-center mx-3">
             <img src="{% static "svg/flow-arrow.svg" %}" alt="Flow Arrows Icon">
         </div>
-        <div id="token-B-image" class="bg-white w-10 h-10 rounded-full"></div> <!--placeholder for token B icon-->
+        <img class="w-12 rounded-full -ml-1" src="{% static 'images/eth.png' %}"alt="Example Eth Logo">
     </div>
 </div>
+
+<script>
+  // Helper function for getting element from the DOM
+  const getEl = selector => document.querySelector(selector);
+  const token_A = getEl("#id_token_input_A");
+  const token_B = getEl("#id_token_input_B");
+  const token_hidden_A = getEl("#id_token_input_A_data");
+  const token_hidden_B = getEl("#id_token_input_B_data");
+  const list_A = getEl(".add-token-dropdown-A");
+  const list_B = getEl(".add-token-dropdown-B");
+  let closeDropdown = false;
+  // Get csrftoken to give to Django and let the post request go through
+  let csrfToken = '{{ csrf_token }}';
+
+  token_A.addEventListener("input" , validate);
+  token_B.addEventListener("input" , validate);
+
+  // Add a delay before a function will run (does not backlog function calls)
+  const debounce = (func, delay) => {
+    let timer; // keep track of current timer
+  
+    return (...args) => {
+      clearTimeout(timer);
+      // start the timer
+      timer = setTimeout(() => {
+        func(...args);
+      }, delay); 
+    };
+  };
+
+  // Prevent space from being first input
+  function validate(ev) {
+    // ^  - start of sentence 
+    // \s - space character
+    if(/^\s/.test(ev.target.value))
+      ev.target.value = '';
+  }
+
+  // As user inputs text, query the backend and receive data from api call
+  async function sendRequestForTokens(token_id, token_query) {
+    let response = await fetch('', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+      'Accept': 'application/json', 
+      'Content-Type': 'application/json', 
+      'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({'token_id': token_id, 'token_query': token_query})
+    });
+    let json = await response.json();
+    return json;
+  }
+
+  function clearList(target) {
+    // Clear previous tokens in dropdown
+    while (target.firstChild) {
+      target.removeChild(target.firstChild);
+    }
+  }
+
+  function updateList(target, data) {
+    const token_list = getEl(target);
+    // Clear previous tokens in dropdown
+    clearList(token_list);
+    if (data.token_list.length === 0) {
+      const coin_element = document.createElement("p");
+      coin_element.textContent = "No results found";
+      token_list.append(coin_element);
+    } 
+    else {
+      data.token_list.slice(0,9).forEach(coin => {
+        const coin_element = document.createElement("li");
+        coin_element.textContent = coin['name'];
+        coin_element.dataset.id = coin['id'];
+        token_list.append(coin_element);
+      });
+    }
+  }
+  // Wait for user to input >=2 characters, then run the
+  // backend request
+  document.body.addEventListener("keyup", debounce(ev => {
+    if (ev.target.matches('#id_token_input_A, #id_token_input_B') && ev.target.value.length >= 2) {
+      sendRequestForTokens(ev.target.id, ev.target.value).then(data => {
+        // Change target depending on which token input is being used
+        let target = (ev.target.id === 'id_token_input_A') ? ".add-token-dropdown-A" : ".add-token-dropdown-B";
+        updateList(target, data);
+      });
+    }
+
+    if (ev.target.value.length < 2) {
+      let target = (ev.target.id === 'id_token_input_A') ? ".add-token-dropdown-A" : ".add-token-dropdown-B";
+      clearList(getEl(target));
+    }
+
+  }, 350));
+
+  // Drop down toggle
+
+  token_A.addEventListener("keyup", ev => {
+    if (ev.target.value.length >= 2) {
+      list_A.classList.add('dropdown');
+    } else {
+      list_A.classList.remove('dropdown');
+    }
+  });
+
+  token_B.addEventListener("keyup", ev => {
+    if (ev.target.value.length >= 2) {
+      list_B.classList.add('dropdown');
+    } else {
+      list_B.classList.remove('dropdown');
+    }
+  });
+
+  // Dropdown item click handling
+
+  list_A.addEventListener("click", ev => {
+    if (ev.target.matches("li")) {
+      let hidden_a_data = getEl('#id_token_input_A_data');
+      token_A.value = ev.target.textContent;
+      hidden_a_data.value = ev.target.dataset.id;
+      list_A.classList.remove('dropdown');
+    }
+  });
+
+  list_B.addEventListener("click", ev => {
+    if (ev.target.matches("li")) {
+      let hidden_b_data = getEl('#id_token_input_B_data');
+      token_B.value = ev.target.textContent;
+      hidden_b_data.value = ev.target.dataset.id;
+      list_B.classList.remove('dropdown');
+    }
+    if (token_hidden_A.value.length > 0 && token_hidden_B.value.length > 0) {
+      // Redirect to transform page once form is valid (both tokens have been entered)
+      getEl('#tokens-form').submit();
+    }
+  });
+
+  // Reset dropdown visibility when the mouse leave the dropdown list
+
+  list_A.addEventListener('mouseleave', ev => {
+    // Toggle flag
+    closeDropdown = true;
+  });
+
+  list_B.addEventListener('mouseleave', ev => {
+    // Toggle flag
+    closeDropdown = true;
+  });
+
+  document.body.addEventListener('click', ev => {
+    if (closeDropdown) {
+      list_A.classList.remove('dropdown');
+      list_B.classList.remove('dropdown');
+    }
+  });
+
+</script>
 
 {% endblock content %}

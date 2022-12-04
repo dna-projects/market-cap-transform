@@ -1,34 +1,80 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% load humanize %}
 {% block content %}
 
-<!-- 
-TODO - Update input div based on final version of initial.html
-
-TODO - Add data attribute so that whatever tokens were selected in initial
-       will show up selected when redirected to this page
--->
-<div id="input" class="flex flex-col w-full mt-10">
+<div id="input" class="flex flex-col w-full text-white mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
-    {% include "components/add-token.html" with default_text="TokenA" id="token-A" %}
-    <div class="flex flex-col self-center gap-1 py-2">
-        <div class="shadow bg-[#FF4B32] w-2 h-2 rounded-full"></div>
-        <div class="shadow bg-[#1BBEF1] w-2 h-2 rounded-full"></div>
-        <div class="shadow bg-[#00FFC2] w-2 h-2 rounded-full"></div>
+    <div class="add-token box-shadow-add-token flex flex-col justify-around self-center relative px-1 h-[110px] w-[175px] md:w-[240px]">
+        <div class="grid grid-cols-3 mt-3">
+            <div class="col-start-2 self-center flex flex-row justify-center">
+                <img class="w-5 rounded-full mx-1" src="{{ token_a.img }}" alt="Token A Logo"> <!--placeholder for token icon--> 
+                <div class="text-sm mx-1">{{ token_a.symbol | upper }}</div>
+            </div>
+            <!-- reset svg -->
+            <div class="col-start-3 flex justify-end">
+                <button class="h-4 w-4 mr-1 -mt-2 md:mt-0 hover:opacity-60">
+                    <a href="{% url 'initial' %}"><img src="{% static "svg/reset.svg" %}" alt="Reset Icon"></a>
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-row md:flex-col md:items-center mb-4">
+            <div class="text-lg mx-2 mt-1 md:text-3xl">{{ token_a.name | capfirst }}</div>
+            <div class="text-xs md:text-base mx-2 pt-2">${{ token_a.price | floatformat:2 | intcomma }}</div>
+        </div>
+    </div>
+    <!-- connecting circles -->
+    <div class="flex flex-col self-center gap-2 py-4 px-4 sm:flex justify-center sm:flex-row">
+        <div class="self-center red-shadow bg-[#FF4B32] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
+        <div class="self-center blue-shadow bg-[#1BBEF1] w-[8px] h-[8px] rounded-full md:w-[10px] md:h-[10px]"></div>
+        <div class="self-center green-shadow bg-[#00FFC2] w-[6px] h-[6px] rounded-full md:w-[8px] md:h-[8px]"></div>
     </div>
     <!-- token B -->
-    {% include "components/add-token.html" with default_text="TokenB" id="token-B" %}
-</div>
+    <div class="add-token box-shadow-add-token flex flex-col justify-around self-center relative px-1 h-[110px] w-[175px] md:w-[240px]">
+        <div class="grid grid-cols-3 mt-3">
+            <div class="col-start-2 self-center flex flex-row justify-center">
+                <img class="w-5 rounded-full mx-1" src="{{ token_b.img }}" alt="Token B Logo"> <!--placeholder for token icon--> 
+                <div class="text-sm mx-1">{{ token_b.symbol | upper }}</div>
+            </div>
+            <!-- reset svg -->
+            <div class="col-start-3 flex justify-end">
+                <button class="h-4 w-4 mr-1 -mt-2 md:mt-0 hover:opacity-60">
+                    <a href="{% url 'initial' %}">
+                        <img src="{% static "svg/reset.svg" %}" alt="Reset Icon">
+                    </a>
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-row md:flex-col md:items-center mb-4">
+            <div class="text-lg mt-1 mx-2 md:text-3xl">{{ token_b.name | capfirst }}</div>
+            <div class="text-xs md:text-base mx-2 pt-2">${{ token_b.price | floatformat:2 | intcomma }}</div>
+        </div>
+    </div></div>
 
-<!-- 
-TODO - Probably remove the ids as long as backend is working. JS seems overkill here...
--->
+<!-- Tranformed content -->
 <div id="output" class="flex flex-col self-center">
-    <p id="market-cap-text" class="text-white my-10">{{ token_a.name }} with the market cap of {{ token_b.name }}</p>
-    <div id="final-market-cap" class="flex self-center justify-around">
-        <div id="token-A-image">{{ token_a.img }}</div>
-        <div id="token-A-price" class="text-white text-2xl self-end">${{ token_a.price }}</div>
-        <div id="token-A-percentage" class="text-green-300 self-end">{{ token_a.percentage }}%</div>
+    <div class="sm:mt-14">
+        <p id="market-cap-text" class="text-white text-sm my-12 px-7 sm:text-xl">
+            {{ token_a.name | capfirst }} with the marketcap of {{ token_b.name | capfirst }}
+        </p>
+    </div>
+    <!-- Token A with new market cap value -->
+    <div class="font-inter flex self-center gap-6">
+        <div id="token-A-image" class="self-center">
+            <img class="w-10 rounded-full" src="{{ token_a.img }}" alt="Token A Logo">
+        </div>
+        <div id="token-A-price" class="text-white self-end text-3xl sm:text-5xl">
+            ${{ token_a.transform_price | floatformat:2 | intcomma }}
+        </div>
+        {% if token_a.percentage > 0 %}
+            <div id="token-A-percentage" class="text-green-300 self-end text:lg sm:text-2xl">
+                {{ token_a.percentage | floatformat:2 | intcomma }}%
+            </div>
+        {% else %}
+            <div id="token-A-percentage" class="text-red-400 self-end text:lg sm:text-2xl">
+                {{ token_a.percentage | floatformat:2 | intcomma }}%
+            </div>
+        {% endif %}
     </div>
 </div>
 

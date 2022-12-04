@@ -5,9 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docker + Django!</title>
+    <title>futurecap</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Maven+Pro&display=swap" rel="stylesheet">
@@ -25,29 +24,29 @@
         <div class="container mx-auto">
             <div class="flex flex-col justify-between h-screen">
 
-                <!-- Start wrapper for nav bar and main content -->
-                <div class="flex flex-col">
-
-                    <!-- Nav bar start -->
-                    <div class="grid grid-cols-3 py-4">
-                        <div class="flex justify-center col-start-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
+                <!-- Nav bar start -->
+                <div class="grid grid-cols-4 pt-6">
+                    <div class="flex justify-center col-start-2 col-span-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
+                        <a href="{% url 'initial' %}" class="flex flex-row">
                             <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
-                            <p class="font-inter flex self-center text-xl tracking-widest -ml-6">futurecap</p>
-                        </div>
-                        <button class="rounded-full col-start-3 justify-self-end mr-10 sm:mr-2" type="button" onclick="settingsDropdown()">
-                            <img id="settings-icon" src="{% static "svg/settings-icon.svg" %}" alt="Settings Icon">
-                        </button>
+                            <div id="logo-text" class="font-inter flex self-center text-2xl -ml-6">futurecap</div>
+                        </a>
                     </div>
-                    <!-- Nav bar end -->
-
-                    <!-- Center div start -->
-                    <div class="main-content box-shadow-main font-mavenpro flex flex-col self-center h-[550px] w-5/6 transition ease-in-out duration-[1200ms] hover:scale-[1.02] mt-3 sm:h-[500px] sm:mt-10">
-                        {% block content %} {% endblock content %}
-                    </div>
-                    <!-- Center div end -->
-
+                    <button class="col-start-4 rounded-full justify-self-end mr-6 sm:mr-10 md:mr-18" type="button" onclick="informationDropdown()">
+                        <img id="information-icon" src="{% static "svg/information-icon.svg" %}" alt="Information Icon">
+                    </button>
+                    <!-- Information dropdown -->
+                    <!-- <div id="dropdownMenu" class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-[#230679]/70 border border-[#6F7CF1]/40 rounded-lg shadow-lg ring-1">
+                        <div class="text-[#FFFDC9] fontMavenpro block rounded-t-lg px-4 py-2 text-md hover:bg-blue-100/20 hover:text-white">Project description</div>
+                    </div> -->
                 </div>
-                <!-- End wrapper for nav bar and main content -->
+                <!-- Nav bar end -->
+
+                <!-- Center div start -->
+                <div class="main-content box-shadow-main font-mavenpro flex flex-col self-center h-[550px] w-5/6 mb-24 -mt-20 md:-mt-24 pb-16 sm:h-[550px] md:w-[710px]">
+                    {% block content %} {% endblock content %}
+                </div>
+                <!-- Center div end -->
 
                 <!-- Footer start -->
                 <div class="flex self-center place-self-end w-48">
@@ -73,4 +72,26 @@
         </div>
     </div>
 </body>
+<script>
+
+// Dropdown for settings icon
+
+function informationDropdown() {
+    const x = document.getElementById("dropdownMenu");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+    if (event.target == x) {
+        x.style.display = "none";
+    }
+    }
+}
+
+// Close dropdown if user clicks outside of it
+
+</script>
 </html>
