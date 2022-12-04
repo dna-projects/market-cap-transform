@@ -52,6 +52,7 @@
   const token_B = getEl("#id_token_input_B");
   const list_A = getEl(".add-token-dropdown-A");
   const list_B = getEl(".add-token-dropdown-B");
+  let closeDropdown = false;
   // Get csrftoken to give to Django and let the post request go through
   let csrfToken = '{{ csrf_token }}';
 
@@ -95,8 +96,17 @@
     return json;
   }
 
+  function clearList(target) {
+    // Clear previous tokens in dropdown
+    while (target.firstChild) {
+      target.removeChild(target.firstChild);
+    }
+  }
+
   function updateList(target, data) {
     const token_list = getEl(target);
+    // Clear previous tokens in dropdown
+    clearList(token_list);
     data.token_list.slice(0,9).forEach(coin => {
       const coin_element = document.createElement("li");
       // coin_element.classList.add("token-li-a");
@@ -113,6 +123,11 @@
         let target = (ev.target.id === 'id_token_input_A') ? ".add-token-dropdown-A" : ".add-token-dropdown-B";
         updateList(target, data);
       });
+    }
+
+    if (ev.target.value.length < 2) {
+      let target = (ev.target.id === 'id_token_input_A') ? ".add-token-dropdown-A" : ".add-token-dropdown-B";
+      clearList(getEl(target));
     }
 
     if (token_A.value.length >= 2 && token_B.value.length >= 2) {
@@ -145,6 +160,7 @@
 
   list_A.addEventListener("click", ev => {
     if (ev.target.matches("li")) {
+      // TODO - Because of focusout event handler, the value isn't being updated properly
       token_A.value = ev.target.textContent;
       list_A.classList.remove('dropdown');
     }
@@ -157,13 +173,23 @@
     }
   });
 
-  // Reset dropdown visibility on focusout event
-  token_A.addEventListener("focusout", ev => {
-    list_A.classList.remove('dropdown');
+  // Reset dropdown visibility when the mouse leaves the dropdown list
+
+  list_A.addEventListener('mouseleave', ev => {
+    // Toggle flag
+    closeDropdown = true;
   });
 
-  token_B.addEventListener("focusout", ev => {
-    list_B.classList.remove('dropdown');
+  list_B.addEventListener('mouseleave', ev => {
+    // Toggle flag
+    closeDropdown = true;
+  });
+
+  document.body.addEventListener('click', ev => {
+    if (closeDropdown) {
+      list_A.classList.remove('dropdown');
+      list_B.classList.remove('dropdown');
+    }
   });
 </script>
 

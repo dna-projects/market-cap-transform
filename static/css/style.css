@@ -625,8 +625,8 @@ video {
   margin-bottom: 6rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
+.-mt-20 {
+  margin-top: -5rem;
 }
 
 .mt-10 {
@@ -956,7 +956,9 @@ video {
 }
 
 .bg-gradient {
-  background: linear-gradient(180deg, #000000 43.46%, rgba(0, 0, 0, 0) 64.84%);
+  background: 
+        linear-gradient(180deg, #000000 43.46%, rgba(0, 0, 0, 0) 64.84%), 
+        linear-gradient(90deg, rgba(0,0,0, 0.5) 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, rgba(0,0,0, 0.5) 100%);
 }
 
 /* Solid border color */
@@ -1231,6 +1233,10 @@ li:hover {
 }
 
 @media (min-width: 768px) {
+  .md\:-mt-24 {
+    margin-top: -6rem;
+  }
+
   .md\:mt-0 {
     margin-top: 0px;
   }
