@@ -1,4 +1,4 @@
-from django.forms import Form, CharField, TextInput
+from django.forms import Form, CharField, TextInput, HiddenInput
 
 # Token A input field
 
@@ -10,12 +10,16 @@ class TokenForm(Form):
         })
     )
 
+    token_input_A_data = CharField(max_length=35, widget=HiddenInput)
+
     token_input_B = CharField(
         max_length = 35,
         widget=TextInput(attrs={
             'placeholder' : 'Add any token...',
         })
     )
+
+    token_input_B_data = CharField(max_length=35, widget=HiddenInput)
 
     def __init__(self, *args, **kwargs):
         super(TokenForm, self).__init__(*args, **kwargs)

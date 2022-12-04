@@ -1,6 +1,7 @@
 import requests
 from requests.exceptions import Timeout, HTTPError
 from decouple import config
+import time
 
 def get_covalent_data(token_id, endpoint):
     base_url = 'https://api.covalenthq.com/v1'

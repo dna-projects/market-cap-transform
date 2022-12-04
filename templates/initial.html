@@ -10,6 +10,7 @@
     <!-- token A -->
     <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
       {{ form.token_input_A }}
+      {{ form.token_input_A_data }}
       <ul class="add-token-dropdown-A border text-start absolute w-[145px] text-white md:w-[200px]"></ul>
     </div>
     <!-- connecting circles -->
@@ -21,6 +22,7 @@
     <!-- token B -->
     <div class="add-token box-shadow-add-token flex flex-col justify-center items-center self-center text-sm sm:text-base relative h-[110px] w-[175px] md:w-[240px]">
       {{ form.token_input_B }}
+      {{ form.token_input_B_data }}
       <ul class="add-token-dropdown-B absolute border text-start w-[145px] text-white md:w-[200px]"></ul>   
     </div>
   </form>
@@ -50,6 +52,8 @@
   const getEl = selector => document.querySelector(selector);
   const token_A = getEl("#id_token_input_A");
   const token_B = getEl("#id_token_input_B");
+  const token_hidden_A = getEl("#id_token_input_A_data");
+  const token_hidden_B = getEl("#id_token_input_B_data");
   const list_A = getEl(".add-token-dropdown-A");
   const list_B = getEl(".add-token-dropdown-B");
   let closeDropdown = false;
@@ -107,12 +111,19 @@
     const token_list = getEl(target);
     // Clear previous tokens in dropdown
     clearList(token_list);
-    data.token_list.slice(0,9).forEach(coin => {
-      const coin_element = document.createElement("li");
-      // coin_element.classList.add("token-li-a");
-      coin_element.textContent = coin["id"];
+    if (data.token_list.length === 0) {
+      const coin_element = document.createElement("p");
+      coin_element.textContent = "No results found";
       token_list.append(coin_element);
-    });
+    } 
+    else {
+      data.token_list.slice(0,9).forEach(coin => {
+        const coin_element = document.createElement("li");
+        coin_element.textContent = coin['name'];
+        coin_element.dataset.id = coin['id'];
+        token_list.append(coin_element);
+      });
+    }
   }
   // Wait for user to input >=2 characters, then run the
   // backend request
@@ -128,12 +139,6 @@
     if (ev.target.value.length < 2) {
       let target = (ev.target.id === 'id_token_input_A') ? ".add-token-dropdown-A" : ".add-token-dropdown-B";
       clearList(getEl(target));
-    }
-
-    if (token_A.value.length >= 2 && token_B.value.length >= 2) {
-      // Redirect to transform page once form is valid (both tokens have been entered)
-      // TODO - Logic is incorrect... Should only submit once api calls have completed
-      getEl('#tokens-form').submit();
     }
 
   }, 350));
@@ -160,20 +165,27 @@
 
   list_A.addEventListener("click", ev => {
     if (ev.target.matches("li")) {
-      // TODO - Because of focusout event handler, the value isn't being updated properly
+      let hidden_a_data = getEl('#id_token_input_A_data');
       token_A.value = ev.target.textContent;
+      hidden_a_data.value = ev.target.dataset.id;
       list_A.classList.remove('dropdown');
     }
   });
 
   list_B.addEventListener("click", ev => {
     if (ev.target.matches("li")) {
+      let hidden_b_data = getEl('#id_token_input_B_data');
       token_B.value = ev.target.textContent;
+      hidden_b_data.value = ev.target.dataset.id;
       list_B.classList.remove('dropdown');
+    }
+    if (token_hidden_A.value.length > 0 && token_hidden_B.value.length > 0) {
+      // Redirect to transform page once form is valid (both tokens have been entered)
+      getEl('#tokens-form').submit();
     }
   });
 
-  // Reset dropdown visibility when the mouse leaves the dropdown list
+  // Reset dropdown visibility when the mouse leave the dropdown list
 
   list_A.addEventListener('mouseleave', ev => {
     // Toggle flag
@@ -191,6 +203,7 @@
       list_B.classList.remove('dropdown');
     }
   });
+
 </script>
 
 {% endblock content %}

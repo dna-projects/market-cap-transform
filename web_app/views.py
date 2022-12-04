@@ -10,6 +10,12 @@ class InitialPageView(FormView):
     template_name = "initial.html"
     form_class = TokenForm
 
+    def get(self, request):
+        request.session.clear()
+        for item in request.session.keys():
+            print(item)
+        return render(request, self.template_name, {'form': self.form_class})
+
     def post(self, request):
         # Redirect when form is submitted
         if request.accepts('text/html'):
@@ -34,12 +40,12 @@ class InitialPageView(FormView):
                     for token in tokens_data_cov['data']['items']
             ]
 
+            compatible_tokens = []
             for token_data in token_records:
                 if token_query in token_data['name'].lower() or token_query in token_data['symbol'].lower():
                     coin_info_by_addr = get_coingecko_data(f"https://api.coingecko.com/api/v3/coins/evmos/contract/{token_data['address']}")
                     if coin_info_by_addr:
-                        print(coin_info_by_addr['id'], "- from CoinGecko")
-                    print(token_data['name'], "- from Covalent")
+                        compatible_tokens.append({'name': token_data["name"], 'id': coin_info_by_addr['id']})
 
             # Django prefers the data given to the frontend is a dictionary
             try:
@@ -47,8 +53,11 @@ class InitialPageView(FormView):
             except:
                 print("could not find token part 1")
                 token_id = {}
+
             request.session[input_name] = token_id
-            token_list = {'token_list' : first_api_call["coins"]}
+            print(request.session[input_name])
+            # token_list = {'token_list' : first_api_call["coins"]}
+            token_list = {'token_list' : compatible_tokens}
             return JsonResponse(token_list)
 
 class TransformPageView(TemplateView):

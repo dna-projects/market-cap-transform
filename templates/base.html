@@ -25,14 +25,14 @@
             <div class="flex flex-col justify-between h-screen">
 
                 <!-- Nav bar start -->
-                <div class="grid grid-cols-3 pt-6">
-                    <div class="flex justify-center col-start-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
+                <div class="grid grid-cols-4 pt-6">
+                    <div class="flex justify-center col-start-2 col-span-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
                         <a href="{% url 'initial' %}" class="flex flex-row">
                             <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
                             <div id="logo-text" class="font-inter flex self-center text-2xl -ml-6">futurecap</div>
                         </a>
                     </div>
-                    <button class="rounded-full col-start-3 justify-self-end mr-10 sm:mr-2" type="button" onclick="informationDropdown()">
+                    <button class="col-start-4 rounded-full justify-self-end mr-6 sm:mr-10 md:mr-18" type="button" onclick="informationDropdown()">
                         <img id="information-icon" src="{% static "svg/information-icon.svg" %}" alt="Information Icon">
                     </button>
                     <!-- Information dropdown -->
