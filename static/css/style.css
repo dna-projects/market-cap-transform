@@ -1098,7 +1098,7 @@ li:hover {
 /* Add token input box shadow */
 
 .box-shadow-add-token {
-  box-shadow: 0px 4px 36px -10px rgb(0, 155, 255);
+  box-shadow: 0px 7px 38px -12px rgb(0, 155, 255);
 }
 
 /* Circle icon shadow */
@@ -1139,8 +1139,8 @@ li:hover {
 }
 
 #connection > div {
-  opacity: 0.33;
-  animation: loading 3.4s ease-in infinite alternate;
+  opacity: 0.4;
+  animation: loading 3s ease-in infinite alternate;
 }
 
 @keyframes loading {

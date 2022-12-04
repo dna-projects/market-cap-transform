@@ -156,6 +156,15 @@
       list_B.classList.remove('dropdown');
     }
   });
+
+  // Reset dropdown visibility on focusout event
+  token_A.addEventListener("focusout", ev => {
+    list_A.classList.remove('dropdown');
+  });
+
+  token_B.addEventListener("focusout", ev => {
+    list_B.classList.remove('dropdown');
+  });
 </script>
 
 {% endblock content %}
