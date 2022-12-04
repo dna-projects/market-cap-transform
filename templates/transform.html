@@ -6,7 +6,7 @@
 <div id="input" class="flex flex-col w-full text-white mt-10 sm:flex justify-center sm:flex-row sm:mt-16">
     <!-- token A -->
     <div class="add-token box-shadow-add-token flex flex-col justify-around self-center relative px-1 h-[110px] w-[175px] md:w-[240px]">
-        <div class="grid grid-cols-3 mt-2">
+        <div class="grid grid-cols-3 mt-3">
             <div class="col-start-2 self-center flex flex-row justify-center">
                 <img class="w-5 rounded-full mx-1" src="{{ token_a.img }}" alt="Token A Logo"> <!--placeholder for token icon--> 
                 <div class="text-sm mx-1">{{ token_a.symbol | upper }}</div>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="flex flex-row md:flex-col md:items-center mb-4">
-            <div class="text-lg mx-2 md:text-3xl">{{ token_a.name | capfirst }}</div>
+            <div class="text-lg mx-2 mt-1 md:text-3xl">{{ token_a.name | capfirst }}</div>
             <div class="text-xs md:text-base mx-2 pt-2">${{ token_a.price | floatformat:2 | intcomma }}</div>
         </div>
     </div>
@@ -31,7 +31,7 @@
     </div>
     <!-- token B -->
     <div class="add-token box-shadow-add-token flex flex-col justify-around self-center relative px-1 h-[110px] w-[175px] md:w-[240px]">
-        <div class="grid grid-cols-3 mt-2">
+        <div class="grid grid-cols-3 mt-3">
             <div class="col-start-2 self-center flex flex-row justify-center">
                 <img class="w-5 rounded-full mx-1" src="{{ token_b.img }}" alt="Token B Logo"> <!--placeholder for token icon--> 
                 <div class="text-sm mx-1">{{ token_b.symbol | upper }}</div>
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="flex flex-row md:flex-col md:items-center mb-4">
-            <div class="text-lg mx-2 md:text-3xl">{{ token_b.name | capfirst }}</div>
+            <div class="text-lg mt-1 mx-2 md:text-3xl">{{ token_b.name | capfirst }}</div>
             <div class="text-xs md:text-base mx-2 pt-2">${{ token_b.price | floatformat:2 | intcomma }}</div>
         </div>
     </div></div>

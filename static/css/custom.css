@@ -8,7 +8,7 @@
 
 /* Solid border color */
 .main-content {
-    border:1px solid rgba(103, 225, 241, .75);
+    border: 1px solid rgba(103, 225, 241, .75);
     border-radius:12px;
     background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 36, 70, 0.5) 100%);
 }
@@ -88,6 +88,7 @@ input:hover {
 li {
     margin-top: 2px;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 li:hover {
@@ -134,7 +135,6 @@ li:hover {
 /* Add token input box shadow */
 .box-shadow-add-token {
     box-shadow: 0px 4px 36px -10px rgb(0, 155, 255);
-    /* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
 }
 
 /* Circle icon shadow */
@@ -172,4 +172,16 @@ li:hover {
 
 #logo-text {
     letter-spacing: 0.32rem;
+}
+
+#connection > div {
+    opacity: 0.33;
+    animation: loading 3.4s ease-in infinite alternate;
+}
+
+@keyframes loading {
+    100% {
+        transform: scale(1.28);
+        opacity: 1;
+    }
 }

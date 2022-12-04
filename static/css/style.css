@@ -637,6 +637,10 @@ video {
   margin-left: -0.25rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
 .mr-1 {
   margin-right: 0.25rem;
 }
@@ -647,6 +651,10 @@ video {
 
 .mb-4 {
   margin-bottom: 1rem;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
 }
 
 .block {
@@ -845,11 +853,6 @@ video {
   background-color: rgb(0 255 194 / var(--tw-bg-opacity));
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -860,6 +863,11 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -868,6 +876,10 @@ video {
 .px-7 {
   padding-left: 1.75rem;
   padding-right: 1.75rem;
+}
+
+.pt-6 {
+  padding-top: 1.5rem;
 }
 
 .pb-16 {
@@ -950,7 +962,7 @@ video {
 /* Solid border color */
 
 .main-content {
-  border:1px solid rgba(103, 225, 241, .75);
+  border: 1px solid rgba(103, 225, 241, .75);
   border-radius:12px;
   background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(0, 36, 70, 0.5) 100%);
 }
@@ -1037,6 +1049,7 @@ input:hover {
 li {
   margin-top: 2px;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 li:hover {
@@ -1086,7 +1099,6 @@ li:hover {
 
 .box-shadow-add-token {
   box-shadow: 0px 4px 36px -10px rgb(0, 155, 255);
-  /* box-shadow: 0px 120px 170px -70px rgba(31, 184, 255, 1); */
 }
 
 /* Circle icon shadow */
@@ -1124,6 +1136,18 @@ li:hover {
 
 #logo-text {
   letter-spacing: 0.32rem;
+}
+
+#connection > div {
+  opacity: 0.33;
+  animation: loading 3.4s ease-in infinite alternate;
+}
+
+@keyframes loading {
+  100% {
+    transform: scale(1.28);
+    opacity: 1;
+  }
 }
 
 .hover\:bg-blue-100\/20:hover {
