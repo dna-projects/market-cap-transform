@@ -81,9 +81,6 @@ class TransformPageView(TemplateView):
             calculation *= - 1
         return calculation
 
-    # TODO - Figure out how to handle what happens when the name 
-    # spans onto a separate line. 
-
     def get(self, request):
         # Second API call
         token_a_id = request.session["id_token_input_A"]
