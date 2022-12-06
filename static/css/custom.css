@@ -20,6 +20,12 @@
     box-shadow: 0px 80px 100px -30px rgba(31, 203, 255, .5);
 }
 
+@media only screen and (min-height: 917px) {
+    .main-content {
+        margin-top: -140px;
+    }
+}
+
 .add-token-dropdown-A {
     display: none;
     z-index: 10;

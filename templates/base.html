@@ -25,7 +25,7 @@
             <div class="flex flex-col justify-between h-screen">
 
                 <!-- Nav bar start -->
-                <div class="grid grid-cols-4 pt-6">
+                <div class="grid grid-cols-4 pt-4 mb-2">
                     <div class="flex justify-center col-start-2 col-span-2 text-white sm:col-start-1 sm:justify-self-start sm:ml-2">
                         <a href="{% url 'initial' %}" class="flex flex-row">
                             <img id="logo" src="{% static "images/logo.png" %}" alt="Logo">
@@ -43,7 +43,7 @@
                 <!-- Nav bar end -->
 
                 <!-- Center div start -->
-                <div class="main-content box-shadow-main font-mavenpro flex flex-col self-center h-[550px] w-5/6 mb-24 -mt-20 md:-mt-24 pb-16 sm:h-[550px] md:w-[710px]">
+                <div class="main-content box-shadow-main font-mavenpro flex flex-col self-center h-[550px] w-5/6 pb-16 sm:h-[550px] md:w-[710px]">
                     {% block content %} {% endblock content %}
                 </div>
                 <!-- Center div end -->
